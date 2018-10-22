@@ -1,0 +1,43 @@
+{
+  "project_info": {
+    "project_number": "326733017994",
+    "firebase_url": "https://crazy-memory.firebaseio.com",
+    "project_id": "crazy-memory",
+    "storage_bucket": "crazy-memory.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:326733017994:android:ece4eb74b3f93828",
+        "android_client_info": {
+          "package_name": "com.MirrorGames.CrazyMemory"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "326733017994-q0torj9lm7d782narr6e186854nrebbk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCg_6ZAoXZ-F2tOVXl2kFlsDzEK96PmbMs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      },
+      "admob_app_id": "ca-app-pub-8875687836686988~4189723037"
+    }
+  ],
+  "configuration_version": "1"
+}
