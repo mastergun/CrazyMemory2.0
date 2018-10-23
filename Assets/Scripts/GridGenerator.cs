@@ -20,12 +20,24 @@ public class GridGenerator : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (generatingGrid && cardsInMovement ==0)
+        if (generatingGrid && cardsInMovement == 0)
         {
             Debug.Log("first Shuffle");
             //start rotate cards
-            RotateAllCards();
-            generatingGrid = false;
+            for(int i = 0;i < cardsInGame.Count; i++)
+            {
+                if (!cardsInGame[i].GetComponentInChildren<CardScript>().CanMove())
+                {
+                    Debug.Log("wait until all cards are seted");
+                    break;
+                }
+                if(i == (cardsInGame.Count - 1))
+                {
+                    RotateAllCards();
+                    generatingGrid = false;
+                }
+            }
+            
         }
     }
 
@@ -36,7 +48,7 @@ public class GridGenerator : MonoBehaviour {
         for (int k = 1; k <= (gridSize.x * gridSize.y); k++)
         {
             idCounter += k%2;
-            cardsInGame.Add(InicializeCard(idCounter - 1, textures[0]));
+            cardsInGame.Add(InicializeCard(idCounter - 1, textures[(idCounter - 1)%4]));
         }
 
         //shuffle the list
@@ -80,12 +92,17 @@ public class GridGenerator : MonoBehaviour {
             shuffleing = true;
             while (shuffleing)
             {
+                if (cardsInGame.Count == 0) break;
                 int x = (int)Random.Range(0, cardsInGame.Count - 1);
-                if (cardsInGame[x].GetComponentInChildren<CardScript>().CanMove())
+                if(cardsInGame[x] != null)
                 {
-                    indexs.Add(x);
-                    cardsInMovement++;
-                    shuffleing = false;
+                    if (cardsInGame[x].GetComponentInChildren<CardScript>().CanMove() && 
+                        !cardsInGame[x].GetComponentInChildren<CardScript>().reversed)
+                    {
+                        indexs.Add(x);
+                        cardsInMovement++;
+                        shuffleing = false;
+                    }
                 }
             }
         }
@@ -142,5 +159,26 @@ public class GridGenerator : MonoBehaviour {
     public void CardEndMovement()
     {
         cardsInMovement--;
+    }
+
+    public void CleanGrid()
+    {
+        for (int i = 0; i < cardsInGame.Count; i++)
+        {
+            Destroy(cardsInGame[i]);
+        }
+        cardsInGame.Clear();
+    }
+
+    public void RemoveTwoCards(CardScript card1, CardScript card2)
+    {
+        card1.AutoDestroy();
+        card2.AutoDestroy();
+        Debug.Log("cards in game " + cardsInGame.Count);
+    }
+
+    public void RemoveCardFromPull(GameObject obj)
+    {
+        cardsInGame.Remove(obj);
     }
 }

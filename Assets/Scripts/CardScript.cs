@@ -18,7 +18,9 @@ public class CardScript : MonoBehaviour {
     Vector3 desiredPos;
     Vector3 dir;
     bool moving = false;
-    bool bloqued = false;
+    bool b = false;
+    public bool reversed = false;
+
     // Use this for initialization
     void Start () {
         if(cardTexture != null) spriteRef.sprite = cardTexture;
@@ -42,11 +44,15 @@ public class CardScript : MonoBehaviour {
 
     public void ResetCard()
     {
+        b = false;
         this.GetComponent<Animator>().SetBool("Rotate", false);
+        Debug.Log("unlocked");
     }
 
     public void RotateCard()
     {
+        b = true;
+        reversed = !reversed;
         this.GetComponent<Animator>().SetBool("Reversed", !this.GetComponent<Animator>().GetBool("Reversed"));
         this.GetComponent<Animator>().SetBool("Rotate", true);
     }
@@ -79,12 +85,13 @@ public class CardScript : MonoBehaviour {
 
     public bool CanMove()
     {
-        if (!moving && !bloqued) return true;
+        if (!moving && !b) return true;
         else return false;
     }
 
     public void AutoDestroy()
     {
-        Destroy(this);
+        gridRef.RemoveCardFromPull(this.transform.parent.gameObject);
+        Destroy(this.transform.parent.gameObject);
     }
 }

@@ -47,7 +47,6 @@ public class GameController : MonoBehaviour {
                 if (deltatime > maxInVisT)
                 {
                     GetComponent<GridGenerator>().RotateAllCards();
-                    GetComponent<GridGenerator>().ShuffleTwoCards();
                     deltatime = 0;
                     initGame = false;
                 }
@@ -71,6 +70,13 @@ public class GameController : MonoBehaviour {
         initGame = true;
         deltatime = 0;
         GetComponent<GridGenerator>().GenerateGrid();
+    }
+    public void ResetGame()
+    {
+        inGame = false;
+        initGame = false;
+        deltatime = 0;
+        GetComponent<GridGenerator>().CleanGrid();
     }
 
     void SetGamePref(Dificult d)
