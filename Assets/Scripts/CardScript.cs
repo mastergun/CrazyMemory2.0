@@ -12,10 +12,13 @@ public class CardScript : MonoBehaviour {
     public float speed;
     public Transform root;
 
+    public GridGenerator gridRef;
+
     Vector2 gridPos;
     Vector3 desiredPos;
     Vector3 dir;
     bool moving = false;
+    bool bloqued = false;
     // Use this for initialization
     void Start () {
         if(cardTexture != null) spriteRef.sprite = cardTexture;
@@ -31,6 +34,7 @@ public class CardScript : MonoBehaviour {
                 root.position = desiredPos;
                 moving = false;
                 dir = Vector2.zero;
+                gridRef.CardEndMovement();
             }
             else root.position += dir * speed;
         }
@@ -43,7 +47,6 @@ public class CardScript : MonoBehaviour {
 
     public void RotateCard()
     {
-        Debug.Log("rotate");
         this.GetComponent<Animator>().SetBool("Reversed", !this.GetComponent<Animator>().GetBool("Reversed"));
         this.GetComponent<Animator>().SetBool("Rotate", true);
     }
@@ -63,7 +66,8 @@ public class CardScript : MonoBehaviour {
             desiredPos.y = gridPos.y * cardSize.y;
             dir = (desiredPos - root.position).normalized;
         }
-        
+        else gridRef.CardEndMovement();
+
     }
 
     public Vector2 GetGridPos(bool grid)
@@ -73,8 +77,14 @@ public class CardScript : MonoBehaviour {
         return gp;
     }
 
-    public bool IsMoving()
+    public bool CanMove()
     {
-        return moving;
+        if (!moving && !bloqued) return true;
+        else return false;
+    }
+
+    public void AutoDestroy()
+    {
+        Destroy(this);
     }
 }
