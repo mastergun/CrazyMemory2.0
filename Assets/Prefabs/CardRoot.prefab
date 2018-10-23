@@ -176,6 +176,9 @@ MonoBehaviour:
   id: 0
   cardTexture: {fileID: 0}
   spriteRef: {fileID: 212253408565502764}
+  cardSize: {x: 2, y: 3}
+  speed: 0.1
+  root: {fileID: 4325081146314422}
 --- !u!212 &212253408565502764
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -141,8 +141,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8be99c79bedfcbe4596d80012610f011, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  listOfCards:
-  - {fileID: 792966717}
 --- !u!4 &715941508
 Transform:
   m_ObjectHideFlags: 0
@@ -171,12 +169,6 @@ MonoBehaviour:
   textures:
   - {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
   gridSize: {x: 4, y: 4}
---- !u!114 &792966717 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 114984520628712156, guid: 0199aaf407c3cda4cbf4dca4dfba8a67,
-    type: 2}
-  m_PrefabInternal: {fileID: 1363755774}
-  m_Script: {fileID: 11500000, guid: 0b723e1c7b42a9a4692844f42aef307b, type: 3}
 --- !u!1 &951927011
 GameObject:
   m_ObjectHideFlags: 0
@@ -386,6 +378,10 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4325081146314422, guid: 0199aaf407c3cda4cbf4dca4dfba8a67, type: 2}
       propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1692939744477228, guid: 0199aaf407c3cda4cbf4dca4dfba8a67, type: 2}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
