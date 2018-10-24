@@ -8,24 +8,37 @@ using UnityEngine.UI;
 
 public class ScoreManager : MonoBehaviour
 {
+    public struct Score
+    {
+        public float points;
+        public float time;
+        public int errors;
+    }
 
-    public Text score;
-    public Text finalScore;
-    public Text mainMenuMaxScore;
-    float MaxScore;
-    float currentScore;
-    float initPoint;
-    bool firstTimeGame = false;
+    public Text inGameTimeScore;
+    List<Score> maxScoreByDif;
+
+    int currentDificult;
+    Score currentScore;
+
+    bool firstTimeGame = true;
     public bool parseScore = false;
     // Use this for initialization
 
     void Start()
     {
+        maxScoreByDif = new List<Score>();
         LoadGame();
-        //initPoint = this.GetComponent<LevelGenerator>().chihuahuaRef.transform.position.x;
-        currentScore = 0;
+        ResetCurrentScore();
         //source = GetComponent<AudioSource>();
-        if (!firstTimeGame) MaxScore = 0.0f;
+        if (firstTimeGame)
+        {
+            Debug.Log("setting first time scores");
+            maxScoreByDif.Add(SetScoreInitScore());
+            maxScoreByDif.Add(SetScoreInitScore());
+            maxScoreByDif.Add(SetScoreInitScore());
+            maxScoreByDif.Add(SetScoreInitScore());
+        }
     }
 
     // Update is called once per frame
@@ -33,44 +46,82 @@ public class ScoreManager : MonoBehaviour
     {
         if (parseScore)
         {
-            score.text = currentScore.ToString("F1") + "m";
+            currentScore.time += Time.deltaTime;
+            inGameTimeScore.text = currentScore.time.ToString("F1") + "s";
         }
     }
 
-    void SetMaxScore(float score)
+    void SetMaxScore(float score, float time, int errors, int dificult)
     {
-        MaxScore = score;
-        firstTimeGame = true;
-        mainMenuMaxScore.text = MaxScore.ToString("F1") + "m";
+        Score s;
+        s.points = score;
+        s.time = time;
+        s.errors = errors;
+        maxScoreByDif[dificult] = s;
+        firstTimeGame = false;
         SaveGame();
     }
 
     public void CompareScore()
     {
-        if (currentScore > MaxScore)
+        if(currentScore.points > maxScoreByDif[currentDificult].points ||
+            currentScore.time < maxScoreByDif[currentDificult].time||
+            currentScore.points < maxScoreByDif[currentDificult].errors)
         {
-            SetMaxScore(currentScore);
+            Debug.Log("max score raised!!");
+            SetMaxScore(currentScore.points, currentScore.time, currentScore.errors, currentDificult);
         }
-        else if (currentScore < 0) currentScore = 0;
     }
 
     public void ResetCurrentScore()
     {
-        currentScore = 0;
-        score.text = currentScore.ToString();
-        parseScore = false;
+        currentScore.points = 0;
+        currentScore.time = 0;
+        currentScore.errors = 0;
+        inGameTimeScore.text = 0.ToString() + "s";
     }
-    public void SetMaxScoreScreen()
+
+    public void SetScoreScreen(Text points, Text time, Text errors, int dif)
     {
-        finalScore.text = currentScore.ToString("F1") + "m";
+        points.text = maxScoreByDif[dif].points.ToString();
+        time.text = maxScoreByDif[dif].time.ToString() + " s";
+        errors.text = maxScoreByDif[dif].errors.ToString();
+        currentDificult = dif;
+        Debug.Log("max score texts setted");
+    }
+
+    public void SetCurrentScoreScreen(Text points, Text time, Text errors)
+    {
+        points.text = currentScore.points.ToString();
+        time.text = currentScore.time.ToString() + " s";
+        errors.text = currentScore.errors.ToString();
+        Debug.Log("max score texts setted");
     }
 
     private Save CreateSaveGameObject()
     {
         Save save = new Save();
-        save.MaxScore = MaxScore;
+        for(int i=0;i < maxScoreByDif.Count; i++){
+            save.sd[i].dif = i;
+            save.sd[i].maxScorePoints = maxScoreByDif[i].points;
+            save.sd[i].bestTime = maxScoreByDif[i].time;
+            save.sd[i].errors = maxScoreByDif[i].errors;
+        }
         save.firstTimeGame = firstTimeGame;
         return save;
+    }
+
+    private void LoadScoreFromSaveObject(Save save)
+    {
+        for(int i=0;i < save.sd.Length; i++)
+        {
+            Score s;
+            s.points = save.sd[i].maxScorePoints;
+            s.time = save.sd[i].bestTime;
+            s.errors = save.sd[i].errors;
+            maxScoreByDif.Add(s);
+        }
+        firstTimeGame = save.firstTimeGame;
     }
 
     public void SaveGame()
@@ -100,13 +151,25 @@ public class ScoreManager : MonoBehaviour
             file.Close();
 
             // set variables
-            MaxScore = save.MaxScore;
-            SetMaxScore(MaxScore);
-            firstTimeGame = save.firstTimeGame;
+            LoadScoreFromSaveObject(save);
         }
         else
         {
             Debug.Log("No game saved!");
         }
+    }
+
+    Score SetScoreInitScore()
+    {
+        Score score;
+        score.points = 0;
+        score.time = 0;
+        score.errors = 0;
+        return score;
+    }
+
+    public int GetCurrentDifficult()
+    {
+        return currentDificult;
     }
 }

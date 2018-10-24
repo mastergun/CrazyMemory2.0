@@ -22,18 +22,19 @@ public class GameController : MonoBehaviour {
         public float timeBtwShuffle;
     }
 
-    public List<GameSettings> PlayerLifesByDificult;
+    public List<GameSettings> PlayerSettingsByDificult;
 
     //game variables
     float deltatime;
     float maxInVisT;
     float tbs;
     int pl = 0;
-    bool inGame = false;
+    public bool inGame = false;
     bool initGame = false;
 
     // Use this for initialization
     void Start () {
+        //PlayerSettingsByDificult = new List<GameSettings>();
         deltatime = 0;
     }
 	
@@ -41,19 +42,22 @@ public class GameController : MonoBehaviour {
 	void Update () {
         if (inGame)
         {
+            //Debug.Log(deltatime);
             deltatime += 0.01f;
             if (initGame)
             {
+                //Debug.Log("initGame");
                 if (deltatime > maxInVisT)
                 {
                     GetComponent<GridGenerator>().RotateAllCards();
                     deltatime = 0;
                     initGame = false;
+                    GetComponent<ScoreManager>().parseScore = true;
                 }
             }
             else
             {
-                if (deltatime > tbs)
+                if (deltatime > tbs && tbs != 1)
                 {
                     GetComponent<GridGenerator>().ShuffleTwoCards();
                     deltatime = 0;
@@ -64,28 +68,38 @@ public class GameController : MonoBehaviour {
 
     public void StartGame(int d)
     {
-        Debug.Log((Dificult)d);
-        SetGamePref((Dificult)d);
-        inGame = true;
+        Debug.Log("dificult is: " + d);
+        SetGamePref(d);
         initGame = true;
-        deltatime = 0;
+        deltatime = 0.0f;
+        Debug.Log("start to generate grid");
         GetComponent<GridGenerator>().GenerateGrid();
     }
     public void ResetGame()
     {
         inGame = false;
         initGame = false;
+        GetComponent<ScoreManager>().parseScore = false;
         deltatime = 0;
         GetComponent<GridGenerator>().CleanGrid();
     }
 
-    void SetGamePref(Dificult d)
+    public void SetGamePref(int d)
     {
-        pl = PlayerLifesByDificult[(int)d].playerLifes;
+        //set lifes
+        Debug.Log("id is " + d);
+        pl = PlayerSettingsByDificult[d].playerLifes;
+        //set if is infinite game and grid size
         GetComponent<GridGenerator>().SetGridPreferences(
-            PlayerLifesByDificult[(int)d].isInfinite, 
-            PlayerLifesByDificult[(int)d].gridSize);
-        maxInVisT = PlayerLifesByDificult[(int)d].maxInitVisibleTime;
-        tbs = PlayerLifesByDificult[(int)d].timeBtwShuffle;
+            PlayerSettingsByDificult[d].isInfinite,
+            PlayerSettingsByDificult[d].gridSize);
+        Debug.Log("is infinite? : " + PlayerSettingsByDificult[d].isInfinite);
+        Debug.Log("grid size is : " + PlayerSettingsByDificult[d].gridSize);
+        //set max init visible time cards
+        maxInVisT = PlayerSettingsByDificult[d].maxInitVisibleTime;
+        Debug.Log("max initial visibilitiy is : " + maxInVisT);
+        //set time btw shuffle
+        tbs = PlayerSettingsByDificult[d].timeBtwShuffle;
+        Debug.Log("time before shuffle is : " + maxInVisT);
     }
 }

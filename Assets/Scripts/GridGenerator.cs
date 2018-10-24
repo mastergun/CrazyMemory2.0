@@ -35,6 +35,7 @@ public class GridGenerator : MonoBehaviour {
                 {
                     RotateAllCards();
                     generatingGrid = false;
+                    
                 }
             }
             
@@ -44,6 +45,7 @@ public class GridGenerator : MonoBehaviour {
     public void GenerateGrid()
     {
         int idCounter = 0;
+        Debug.Log("generating grid");
         //generate the cards, set the id and the textures
         for (int k = 1; k <= (gridSize.x * gridSize.y); k++)
         {
@@ -51,23 +53,28 @@ public class GridGenerator : MonoBehaviour {
             cardsInGame.Add(InicializeCard(idCounter - 1, textures[(idCounter - 1)%4]));
         }
 
+        Debug.Log("start shuffle");
         //shuffle the list
         Shuffle(cardsInGame);
 
+        Debug.Log("give cards his grid pos");
         //give a grid pos to all cards
         Vector2 gp = Vector2.zero;
-        for(int i= 0; i< gridSize.x; i++)
+        for (int i = 0; i < gridSize.x; i++)
         {
             for (int j = 0; j < gridSize.y; j++)
             {
+                Debug.Log("setting pos of card" + ((int)gridSize.x * i + j));
                 gp.x = i;
                 gp.y = j;
-                cardsInGame[(int)gridSize.x * i + j].GetComponentInChildren<CardScript>().SetGridPos(gp);
+                cardsInGame[(int)gridSize.y * i + j].GetComponentInChildren<CardScript>().SetGridPos(gp);
                 cardsInMovement++;
             }
         }
         //make all the cards visible
-        generatingGrid= true;
+        generatingGrid = true;
+        Debug.Log("game can start");
+        GetComponent<GameController>().inGame = true;
     }
 
     public GameObject InicializeCard(int id, Sprite texture)

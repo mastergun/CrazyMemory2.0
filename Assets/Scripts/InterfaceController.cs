@@ -12,16 +12,9 @@ public class InterfaceController : MonoBehaviour {
         TEAMMENU,
         SETTINGSMENU,
         GAMEMENU,
+        RESTARTMENU,
         PAUSEMENU
     }
-
-    //[System.Serializable]
-    //public struct Menu{
-    //    public GameObject menu;
-    //    public Image Background;
-    //    public MENUTYPE type;
-    //    public List<Button> buttons;
-    //}
 
     public List<GameObject> menus;
     
@@ -37,37 +30,44 @@ public class InterfaceController : MonoBehaviour {
 
     public void SetMainMenu()
     {
-        menus[(int)MENUTYPE.MAINMENU].SetActive(true);
-        menus[(int)MENUTYPE.GALERYMENU].SetActive(false);
-        menus[(int)MENUTYPE.TEAMMENU].SetActive(false);
-        menus[(int)MENUTYPE.SETTINGSMENU].SetActive(false);
+        SetMenu(MENUTYPE.MAINMENU);
         GetComponent<GameController>().ResetGame();
+        GetComponent<ScoreManager>().ResetCurrentScore();
     }
 
     public void SetGalleryMenu()
     {
-        menus[(int)MENUTYPE.MAINMENU].SetActive(false);
-        menus[(int)MENUTYPE.GALERYMENU].SetActive(true);
-        menus[(int)MENUTYPE.TEAMMENU].SetActive(false);
-        menus[(int)MENUTYPE.SETTINGSMENU].SetActive(false);
-        //GetComponent<GameController>().ResetGame();
+        SetMenu(MENUTYPE.GALERYMENU);
     }
 
     public void SetTeamMenu()
     {
-        menus[(int)MENUTYPE.MAINMENU].SetActive(false);
-        menus[(int)MENUTYPE.GALERYMENU].SetActive(false);
-        menus[(int)MENUTYPE.TEAMMENU].SetActive(true);
-        menus[(int)MENUTYPE.SETTINGSMENU].SetActive(false);
-        //GetComponent<GameController>().ResetGame();
+        SetMenu(MENUTYPE.TEAMMENU);
     }
 
     public void SetSettingsMenu()
     {
-        menus[(int)MENUTYPE.MAINMENU].SetActive(false);
-        menus[(int)MENUTYPE.GALERYMENU].SetActive(false);
-        menus[(int)MENUTYPE.TEAMMENU].SetActive(false);
-        menus[(int)MENUTYPE.SETTINGSMENU].SetActive(true);
-        //GetComponent<GameController>().ResetGame();
+        SetMenu(MENUTYPE.SETTINGSMENU);
+    }
+
+    public void SetGameMenu()
+    {
+        SetMenu(MENUTYPE.GAMEMENU);
+        Debug.Log(GetComponent<ScoreManager>().GetCurrentDifficult());
+        GetComponent<GameController>().StartGame(GetComponent<ScoreManager>().GetCurrentDifficult());
+    }
+
+    public void SetRestartMenu()
+    {
+        SetMenu(MENUTYPE.RESTARTMENU);
+    }
+
+    void SetMenu(MENUTYPE type)
+    {
+        for(int i=0;i < menus.Count; i++)
+        {
+            if(i == (int)type) menus[i].SetActive(true);
+            else menus[i].SetActive(false);
+        }
     }
 }

@@ -46,7 +46,6 @@ public class CardScript : MonoBehaviour {
     {
         b = false;
         this.GetComponent<Animator>().SetBool("Rotate", false);
-        Debug.Log("unlocked");
     }
 
     public void RotateCard()

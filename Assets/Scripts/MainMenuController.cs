@@ -3,38 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MainMenuController : MonoBehaviour {
+public class MainMenuController : MenuController {
 
-    enum BUTTONTYPE
-    {
-        PLAYBUTTON,
-        LOWDIFICULTBUTTON,
-        UPDIFICULTBUTTON,
-        EXITBUTTON,
-        GALERYBUTTON,
-        TEAMBUTTON,
-        SETTINGSBUTTON
-    }
-    public Image bgRef;
-    public Image difImRef;
-    public Text dificultTextRef;
-    public Text maxScoreTextRef;
-    public List<Color> bgDifColors;
-    public List<string> difTittles;
-    public List<Button> buttons;
-
-    List<float> maxScores; 
-    int DifficultSelected = 1;
     // Use this for initialization
     void Start () {
-        maxScores = new List<float>();
-        if(maxScores.Count == 0)
-        {
-            for(int i=0;i< 4; i++)
-            {
-                maxScores.Add(Random.Range(0,200.0f));
-            }
-        }
         SetDifficult(-1);
     }
 	
@@ -52,13 +24,14 @@ public class MainMenuController : MonoBehaviour {
             Debug.Log("impossible to change dificult");
             return;
         }
-        bgRef.color = bgDifColors[DifficultSelected];
-        dificultTextRef.text = difTittles[DifficultSelected];
-        maxScoreTextRef.text = maxScores[DifficultSelected].ToString();
-    }
 
-    public void SetMaxScoreTexts(int dif, float maxScore)
-    {
-        maxScores[dif] = maxScore;
+        // set background color depending wich dificult had been selected
+        
+        // set dificult button text depending wich dificult had been selected
+        
+
+        //set max score texts
+        Debug.Log("dificult selected is "+ difTittles[DifficultSelected]);
+        SetMaxScoreTexts();
     }
 }
