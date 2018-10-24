@@ -28,10 +28,7 @@ public class MainMenuController : MenuController {
         // set background color depending wich dificult had been selected
         
         // set dificult button text depending wich dificult had been selected
-        
-
         //set max score texts
-        Debug.Log("dificult selected is "+ difTittles[DifficultSelected]);
         SetMaxScoreTexts();
     }
 }

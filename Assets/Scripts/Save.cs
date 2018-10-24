@@ -5,6 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class Save
 {
+
     public struct scoreData
     {
         public int dif;
@@ -14,7 +15,7 @@ public class Save
     }
     // Use this for initialization
 
-    public scoreData[] sd = new scoreData[4];
+    //public List<scoreData> sd = new scoreData[4];
     public bool firstTimeGame = false;
 }
 

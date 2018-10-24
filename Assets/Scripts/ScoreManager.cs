@@ -23,6 +23,8 @@ public class ScoreManager : MonoBehaviour
 
     bool firstTimeGame = true;
     public bool parseScore = false;
+    public float pointsPerCard = 5;
+    public float maxTimeToComplete = 10;
     // Use this for initialization
 
     void Start()
@@ -33,7 +35,6 @@ public class ScoreManager : MonoBehaviour
         //source = GetComponent<AudioSource>();
         if (firstTimeGame)
         {
-            Debug.Log("setting first time scores");
             maxScoreByDif.Add(SetScoreInitScore());
             maxScoreByDif.Add(SetScoreInitScore());
             maxScoreByDif.Add(SetScoreInitScore());
@@ -47,7 +48,15 @@ public class ScoreManager : MonoBehaviour
         if (parseScore)
         {
             currentScore.time += Time.deltaTime;
-            inGameTimeScore.text = currentScore.time.ToString("F1") + "s";
+            inGameTimeScore.text = currentScore.time.ToString("F1") + "s/ " + maxTimeToComplete + "s";
+            if(maxTimeToComplete > 0)
+            {
+                if (currentScore.time >= maxTimeToComplete)
+                {
+                    SetLoseScore();
+                    GetComponent<InterfaceController>().SetRestartMenu();
+                }
+            }
         }
     }
 
@@ -81,6 +90,30 @@ public class ScoreManager : MonoBehaviour
         inGameTimeScore.text = 0.ToString() + "s";
     }
 
+    public void AddScore(bool add)
+    {
+        if (add)
+        {
+            currentScore.points += pointsPerCard;
+            maxTimeToComplete += pointsPerCard;
+        }
+        else
+        {
+            currentScore.errors++;
+        } 
+    }
+
+    public void SetLoseScore()
+    {
+        currentScore.points = 0;
+        maxTimeToComplete =0;
+    }
+
+    public void ResetGameScoreText()
+    {
+        inGameTimeScore.text = currentScore.time.ToString("F1") + "s/ " + maxTimeToComplete + "s";
+    }
+
     public void SetScoreScreen(Text points, Text time, Text errors, int dif)
     {
         points.text = maxScoreByDif[dif].points.ToString();
@@ -95,45 +128,48 @@ public class ScoreManager : MonoBehaviour
         points.text = currentScore.points.ToString();
         time.text = currentScore.time.ToString() + " s";
         errors.text = currentScore.errors.ToString();
-        Debug.Log("max score texts setted");
     }
 
+    //bug to save
     private Save CreateSaveGameObject()
     {
         Save save = new Save();
         for(int i=0;i < maxScoreByDif.Count; i++){
-            save.sd[i].dif = i;
-            save.sd[i].maxScorePoints = maxScoreByDif[i].points;
-            save.sd[i].bestTime = maxScoreByDif[i].time;
-            save.sd[i].errors = maxScoreByDif[i].errors;
+            //save.sd[i].dif = i;
+            //save.sd[i].maxScorePoints = maxScoreByDif[i].points;
+            //save.sd[i].bestTime = maxScoreByDif[i].time;
+            //save.sd[i].errors = maxScoreByDif[i].errors;
         }
         save.firstTimeGame = firstTimeGame;
         return save;
     }
 
+
+    //bug to load
     private void LoadScoreFromSaveObject(Save save)
     {
-        for(int i=0;i < save.sd.Length; i++)
-        {
-            Score s;
-            s.points = save.sd[i].maxScorePoints;
-            s.time = save.sd[i].bestTime;
-            s.errors = save.sd[i].errors;
-            maxScoreByDif.Add(s);
-        }
-        firstTimeGame = save.firstTimeGame;
+        //for(int i=0;i < save.sd.Length; i++)
+        //{
+        //    Score s;
+        //    s.points = save.sd[i].maxScorePoints;
+        //    s.time = save.sd[i].bestTime;
+        //    s.errors = save.sd[i].errors;
+        //    maxScoreByDif.Add(s);
+        //}
+        //firstTimeGame = save.firstTimeGame;
     }
 
+    //bug to create save
     public void SaveGame()
     {
         // create a save data
-        Save save = CreateSaveGameObject();
+        //Save save = CreateSaveGameObject();
 
-        // create save file
-        BinaryFormatter bf = new BinaryFormatter();
-        FileStream file = File.Create(Application.persistentDataPath + "/gamesave.save");
-        bf.Serialize(file, save);
-        file.Close();
+        //// create save file
+        //BinaryFormatter bf = new BinaryFormatter();
+        //FileStream file = File.Create(Application.persistentDataPath + "/gamesave.save");
+        //bf.Serialize(file, save);
+        //file.Close();
 
         //reset variable if you need
 

@@ -46,6 +46,7 @@ public class InputController : MonoBehaviour {
                                                 cardsTurned[1]);
                 turnedCardsCount = 0;
                 cardsTurned.Clear();
+                GetComponent<ScoreManager>().AddScore(true);
             }
             else
             {
@@ -55,6 +56,7 @@ public class InputController : MonoBehaviour {
                     cardsTurned[1].RotateCard();
                     turnedCardsCount = 0;
                     cardsTurned.Clear();
+                    GetComponent<ScoreManager>().AddScore(false);
                 }       
             }
         }

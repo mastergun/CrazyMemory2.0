@@ -1246,10 +1246,10 @@ RectTransform:
   m_Father: {fileID: 125306931}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.38123006}
+  m_AnchorMin: {x: 0, y: 0.36469007}
   m_AnchorMax: {x: 1, y: 0.5248467}
-  m_AnchoredPosition: {x: 0.05870056, y: 3.1000004}
-  m_SizeDelta: {x: 0.040008545, y: -0.19999695}
+  m_AnchoredPosition: {x: 0.058944702, y: 4.5}
+  m_SizeDelta: {x: 0.080048, y: -2.9000015}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &212393475
 MonoBehaviour:
@@ -1277,7 +1277,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 5
     m_MaxSize: 50
-    m_Alignment: 4
+    m_Alignment: 1
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
@@ -2472,25 +2472,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerSettingsByDificult:
   - playerLifes: -1
-    gridSize: {x: 4, y: 4}
+    gridSize: {x: 2, y: 2}
     isInfinite: 0
     maxInitVisibleTime: 5
     timeBtwShuffle: 5
+    maxGameTime: 0
   - playerLifes: -1
-    gridSize: {x: 4, y: 4}
+    gridSize: {x: 2, y: 2}
     isInfinite: 0
     maxInitVisibleTime: 4
     timeBtwShuffle: 4
-  - playerLifes: 3
+    maxGameTime: 30
+  - playerLifes: -1
     gridSize: {x: 4, y: 4}
     isInfinite: 0
     maxInitVisibleTime: 3
     timeBtwShuffle: 3
-  - playerLifes: 3
-    gridSize: {x: 4, y: 4}
+    maxGameTime: 10
+  - playerLifes: -1
+    gridSize: {x: 6, y: 4}
     isInfinite: 1
     maxInitVisibleTime: 5
     timeBtwShuffle: 5
+    maxGameTime: 0
   inGame: 0
 --- !u!4 &715941508
 Transform:
@@ -2566,6 +2570,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inGameTimeScore: {fileID: 212393475}
   parseScore: 0
+  pointsPerCard: 5
+  maxTimeToComplete: 10
 --- !u!1 &834122327
 GameObject:
   m_ObjectHideFlags: 0
@@ -3229,7 +3235,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 989321051}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.04, y: 3.96, z: -10}
+  m_LocalPosition: {x: 6.3, y: 2.7, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

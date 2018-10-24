@@ -20,6 +20,7 @@ public class GameController : MonoBehaviour {
         public bool isInfinite;
         public float maxInitVisibleTime;
         public float timeBtwShuffle;
+        public float maxGameTime;
     }
 
     public List<GameSettings> PlayerSettingsByDificult;
@@ -27,6 +28,7 @@ public class GameController : MonoBehaviour {
     //game variables
     float deltatime;
     float maxInVisT;
+    
     float tbs;
     int pl = 0;
     public bool inGame = false;
@@ -63,16 +65,20 @@ public class GameController : MonoBehaviour {
                     deltatime = 0;
                 }
             }
+            if (CheckEndCondition())
+            {
+                GetComponent<ScoreManager>().CompareScore();
+                GetComponent<InterfaceController>().SetRestartMenu();
+            }
         }
     }
 
     public void StartGame(int d)
     {
-        Debug.Log("dificult is: " + d);
         SetGamePref(d);
         initGame = true;
         deltatime = 0.0f;
-        Debug.Log("start to generate grid");
+       
         GetComponent<GridGenerator>().GenerateGrid();
     }
     public void ResetGame()
@@ -87,19 +93,21 @@ public class GameController : MonoBehaviour {
     public void SetGamePref(int d)
     {
         //set lifes
-        Debug.Log("id is " + d);
         pl = PlayerSettingsByDificult[d].playerLifes;
         //set if is infinite game and grid size
         GetComponent<GridGenerator>().SetGridPreferences(
             PlayerSettingsByDificult[d].isInfinite,
             PlayerSettingsByDificult[d].gridSize);
-        Debug.Log("is infinite? : " + PlayerSettingsByDificult[d].isInfinite);
-        Debug.Log("grid size is : " + PlayerSettingsByDificult[d].gridSize);
         //set max init visible time cards
         maxInVisT = PlayerSettingsByDificult[d].maxInitVisibleTime;
-        Debug.Log("max initial visibilitiy is : " + maxInVisT);
         //set time btw shuffle
         tbs = PlayerSettingsByDificult[d].timeBtwShuffle;
-        Debug.Log("time before shuffle is : " + maxInVisT);
+        GetComponent<ScoreManager>().maxTimeToComplete = PlayerSettingsByDificult[d].maxGameTime;
+    }
+
+    bool CheckEndCondition()
+    {
+        if (GetComponent<GridGenerator>().GetCardsInGame() <= 0) return true;
+        else return false;
     }
 }

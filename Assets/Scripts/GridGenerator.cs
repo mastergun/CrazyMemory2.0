@@ -22,7 +22,6 @@ public class GridGenerator : MonoBehaviour {
 	void Update () {
         if (generatingGrid && cardsInMovement == 0)
         {
-            Debug.Log("first Shuffle");
             //start rotate cards
             for(int i = 0;i < cardsInGame.Count; i++)
             {
@@ -45,26 +44,21 @@ public class GridGenerator : MonoBehaviour {
     public void GenerateGrid()
     {
         int idCounter = 0;
-        Debug.Log("generating grid");
         //generate the cards, set the id and the textures
         for (int k = 1; k <= (gridSize.x * gridSize.y); k++)
         {
             idCounter += k%2;
             cardsInGame.Add(InicializeCard(idCounter - 1, textures[(idCounter - 1)%4]));
         }
-
-        Debug.Log("start shuffle");
         //shuffle the list
         Shuffle(cardsInGame);
 
-        Debug.Log("give cards his grid pos");
         //give a grid pos to all cards
         Vector2 gp = Vector2.zero;
         for (int i = 0; i < gridSize.x; i++)
         {
             for (int j = 0; j < gridSize.y; j++)
             {
-                Debug.Log("setting pos of card" + ((int)gridSize.x * i + j));
                 gp.x = i;
                 gp.y = j;
                 cardsInGame[(int)gridSize.y * i + j].GetComponentInChildren<CardScript>().SetGridPos(gp);
@@ -73,7 +67,6 @@ public class GridGenerator : MonoBehaviour {
         }
         //make all the cards visible
         generatingGrid = true;
-        Debug.Log("game can start");
         GetComponent<GameController>().inGame = true;
     }
 
@@ -187,5 +180,10 @@ public class GridGenerator : MonoBehaviour {
     public void RemoveCardFromPull(GameObject obj)
     {
         cardsInGame.Remove(obj);
+    }
+
+    public int GetCardsInGame()
+    {
+        return cardsInGame.Count;
     }
 }

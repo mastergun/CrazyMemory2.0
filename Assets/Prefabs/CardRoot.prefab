@@ -189,7 +189,7 @@ MonoBehaviour:
   id: 0
   cardTexture: {fileID: 0}
   spriteRef: {fileID: 212253408565502764}
-  cardSize: {x: 2, y: 2}
+  cardSize: {x: 1.2, y: 1.2}
   speed: 0.1
   root: {fileID: 4325081146314422}
   gridRef: {fileID: 0}
