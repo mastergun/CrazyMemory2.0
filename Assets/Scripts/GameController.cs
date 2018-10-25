@@ -59,7 +59,8 @@ public class GameController : MonoBehaviour {
             }
             else
             {
-                if (deltatime > tbs && tbs != 1)
+                if (deltatime > tbs && tbs != 1 && 
+                    GetComponent<GridGenerator>().GetCardsInMovement()< (GetComponent<GridGenerator>().GetCardsInGame()-2))
                 {
                     GetComponent<GridGenerator>().ShuffleTwoCards();
                     deltatime = 0;

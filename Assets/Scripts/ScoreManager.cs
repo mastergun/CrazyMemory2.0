@@ -130,46 +130,62 @@ public class ScoreManager : MonoBehaviour
         errors.text = currentScore.errors.ToString();
     }
 
+    Score SetScoreInitScore()
+    {
+        Score score;
+        score.points = 0;
+        score.time = 0;
+        score.errors = 0;
+        return score;
+    }
+
+    public int GetCurrentDifficult()
+    {
+        return currentDificult;
+    }
+
     //bug to save
     private Save CreateSaveGameObject()
     {
         Save save = new Save();
-        for(int i=0;i < maxScoreByDif.Count; i++){
-            //save.sd[i].dif = i;
-            //save.sd[i].maxScorePoints = maxScoreByDif[i].points;
-            //save.sd[i].bestTime = maxScoreByDif[i].time;
-            //save.sd[i].errors = maxScoreByDif[i].errors;
+        for (int i = 0; i < maxScoreByDif.Count; i++)
+        {
+            ScoreData score = new ScoreData();
+            score.dif = i;
+            score.maxScorePoints = maxScoreByDif[i].points;
+            score.bestTime = maxScoreByDif[i].time;
+            score.errors = maxScoreByDif[i].errors;
+            save.scores.Add(score);
         }
         save.firstTimeGame = firstTimeGame;
         return save;
     }
 
-
     //bug to load
     private void LoadScoreFromSaveObject(Save save)
     {
-        //for(int i=0;i < save.sd.Length; i++)
-        //{
-        //    Score s;
-        //    s.points = save.sd[i].maxScorePoints;
-        //    s.time = save.sd[i].bestTime;
-        //    s.errors = save.sd[i].errors;
-        //    maxScoreByDif.Add(s);
-        //}
-        //firstTimeGame = save.firstTimeGame;
+        for (int i = 0; i < save.scores.Count; i++)
+        {
+            Score s;
+            s.points = save.scores[i].maxScorePoints;
+            s.time = save.scores[i].bestTime;
+            s.errors = save.scores[i].errors;
+            maxScoreByDif.Add(s);
+        }
+        firstTimeGame = save.firstTimeGame;
     }
 
     //bug to create save
     public void SaveGame()
     {
         // create a save data
-        //Save save = CreateSaveGameObject();
+        Save save = CreateSaveGameObject();
 
-        //// create save file
-        //BinaryFormatter bf = new BinaryFormatter();
-        //FileStream file = File.Create(Application.persistentDataPath + "/gamesave.save");
-        //bf.Serialize(file, save);
-        //file.Close();
+        // create save file
+        BinaryFormatter bf = new BinaryFormatter();
+        FileStream file = File.Create(Application.persistentDataPath + "/gamesave.save");
+        bf.Serialize(file, save);
+        file.Close();
 
         //reset variable if you need
 
@@ -195,17 +211,14 @@ public class ScoreManager : MonoBehaviour
         }
     }
 
-    Score SetScoreInitScore()
-    {
-        Score score;
-        score.points = 0;
-        score.time = 0;
-        score.errors = 0;
-        return score;
-    }
 
-    public int GetCurrentDifficult()
-    {
-        return currentDificult;
-    }
+}
+
+[System.Serializable]
+public class ScoreData
+{
+    public int dif;
+    public float maxScorePoints;
+    public float bestTime;
+    public int errors;
 }

@@ -55,6 +55,7 @@ public class InterfaceController : MonoBehaviour {
     {
         SetMenu(MENUTYPE.GAMEMENU);
         GetComponent<ScoreManager>().ResetGameScoreText();
+        GetComponent<ScoreManager>().ResetCurrentScore();
         GetComponent<GameController>().StartGame(GetComponent<ScoreManager>().GetCurrentDifficult());
     }
 

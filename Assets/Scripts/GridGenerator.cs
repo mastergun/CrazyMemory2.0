@@ -186,4 +186,9 @@ public class GridGenerator : MonoBehaviour {
     {
         return cardsInGame.Count;
     }
+
+    public int GetCardsInMovement()
+    {
+        return cardsInMovement;
+    }
 }
