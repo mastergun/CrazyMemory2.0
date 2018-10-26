@@ -24,7 +24,9 @@ public class ScoreManager : MonoBehaviour
     bool firstTimeGame = true;
     public bool parseScore = false;
     public float pointsPerCard = 5;
-    public float maxTimeToComplete = 10;
+    public float maxTimeToComplete = 0;
+    float currentMaxTime = 0;
+
     // Use this for initialization
 
     void Start()
@@ -48,16 +50,30 @@ public class ScoreManager : MonoBehaviour
         if (parseScore)
         {
             currentScore.time += Time.deltaTime;
-            inGameTimeScore.text = currentScore.time.ToString("F1") + "s/ " + maxTimeToComplete + "s";
-            if(maxTimeToComplete > 0)
+            inGameTimeScore.text = currentScore.time.ToString("F1") + "s/ " + currentMaxTime + "s";
+            if(currentMaxTime > 0)
             {
-                if (currentScore.time >= maxTimeToComplete)
+                if (currentScore.time >= currentMaxTime)
                 {
+                    Debug.Log("player lose the game");
                     SetLoseScore();
-                    GetComponent<InterfaceController>().SetRestartMenu();
+                    GetComponent<GameController>().gs = GameController.GameState.ENDGAME;
                 }
             }
         }
+    }
+
+    //public void ResetScore()
+    //{
+
+    //}
+
+    public void SetScoreValues(float maxTime, int dif)
+    {
+        maxTimeToComplete = maxTime;
+        currentMaxTime = maxTimeToComplete;
+        ResetGameScoreText();
+        currentDificult = dif;
     }
 
     void SetMaxScore(float score, float time, int errors, int dificult)
@@ -88,6 +104,7 @@ public class ScoreManager : MonoBehaviour
         currentScore.time = 0;
         currentScore.errors = 0;
         inGameTimeScore.text = 0.ToString() + "s";
+        currentMaxTime = maxTimeToComplete;
     }
 
     public void AddScore(bool add)
@@ -95,7 +112,7 @@ public class ScoreManager : MonoBehaviour
         if (add)
         {
             currentScore.points += pointsPerCard;
-            maxTimeToComplete += pointsPerCard;
+            if(currentMaxTime > 0) currentMaxTime += pointsPerCard;
         }
         else
         {
@@ -105,13 +122,14 @@ public class ScoreManager : MonoBehaviour
 
     public void SetLoseScore()
     {
+        parseScore = false;
         currentScore.points = 0;
-        maxTimeToComplete =0;
+        currentMaxTime = maxTimeToComplete;
     }
 
     public void ResetGameScoreText()
     {
-        inGameTimeScore.text = currentScore.time.ToString("F1") + "s/ " + maxTimeToComplete + "s";
+        inGameTimeScore.text = currentScore.time.ToString("F1") + "s/ " + currentMaxTime + "s";
     }
 
     public void SetScoreScreen(Text points, Text time, Text errors, int dif)

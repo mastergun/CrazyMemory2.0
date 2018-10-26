@@ -3,6 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GridGenerator : MonoBehaviour {
+    public enum GridState
+    {
+        DISABLED,
+        GENERATINGGRID,
+        ROTATINGALLCARDS,
+        CLEANED,
+        ALLCARDSSTOPED
+    }
 
     public GameObject cardPrefab;
     public List<Sprite> textures;
@@ -10,7 +18,8 @@ public class GridGenerator : MonoBehaviour {
 
     List<GameObject> cardsInGame;
     bool isInfinite = false;
-    bool generatingGrid = false;
+    //bool generatingGrid = false;
+    public GridState gridState = GridState.DISABLED;
     int cardsInMovement = 0;
 	// Use this for initialization
 	void Start () {
@@ -20,25 +29,56 @@ public class GridGenerator : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (generatingGrid && cardsInMovement == 0)
+        switch (gridState)
         {
-            //start rotate cards
-            for(int i = 0;i < cardsInGame.Count; i++)
-            {
-                if (!cardsInGame[i].GetComponentInChildren<CardScript>().CanMove())
+            case GridState.DISABLED:
+                break;
+
+            case GridState.GENERATINGGRID:
+                if (cardsInMovement == 0) gridState = GridState.ROTATINGALLCARDS;
+                break;
+
+            case GridState.ROTATINGALLCARDS:
+                RotateAllCards();
+                gridState = GridState.DISABLED;
+                GetComponent<GameController>().gs = GameController.GameState.INITGAME;
+                break;
+
+            case GridState.CLEANED:
+                GetComponent<GameController>().gs = GameController.GameState.CHANGEMENU;
+                gridState = GridState.DISABLED;
+                break;
+
+            case GridState.ALLCARDSSTOPED:
+                
+                if (cardsInMovement == 0)
                 {
-                    Debug.Log("wait until all cards are seted");
-                    break;
+                    Debug.Log("all cards still stoped");
+                    gridState = GridState.DISABLED;
+                    GetComponent<InputController>().DeactivateInput(true);
+                    GetComponent<GameController>().gs = GameController.GameState.GAMELOOP;
                 }
-                if(i == (cardsInGame.Count - 1))
-                {
-                    RotateAllCards();
-                    generatingGrid = false;
-                    
-                }
-            }
-            
+                break;
         }
+        //if (generatingGrid && cardsInMovement == 0)
+        //{
+        //    //start rotate cards
+        //    for(int i = 0;i < cardsInGame.Count; i++)
+        //    {
+        //        if (!cardsInGame[i].GetComponentInChildren<CardScript>().CanMove())
+        //        {
+        //            Debug.Log("wait until all cards are seted");
+        //            break;
+        //        }
+        //        if(i == (cardsInGame.Count - 1))
+        //        {
+        //            RotateAllCards();
+        //            generatingGrid = false;
+                    
+        //        }
+        //    }
+            
+        //}
     }
 
     public void GenerateGrid()
@@ -66,8 +106,8 @@ public class GridGenerator : MonoBehaviour {
             }
         }
         //make all the cards visible
-        generatingGrid = true;
-        GetComponent<GameController>().inGame = true;
+        gridState = GridState.GENERATINGGRID;
+        
     }
 
     public GameObject InicializeCard(int id, Sprite texture)
@@ -126,13 +166,6 @@ public class GridGenerator : MonoBehaviour {
         }
     }
 
-    public void RotateCard(GameObject card)
-    {
-        for (int i = 0;i < cardsInGame.Count ;i++)
-        {
-            if(cardsInGame[i] == card) cardsInGame[i].GetComponentInChildren<CardScript>().RotateCard();
-        }
-    }
 
     public void RotateRandomCard()
     {
@@ -142,12 +175,17 @@ public class GridGenerator : MonoBehaviour {
 
     public void RotateAllCards()
     {
-        for (int i = 0; i < cardsInGame.Count; i++)
+        if(cardsInGame.Count != 0 && cardsInMovement ==0)
         {
-            cardsInGame[i].GetComponentInChildren<CardScript>().RotateCard();
+            for (int i = 0; i < cardsInGame.Count; i++)
+            {
+                cardsInGame[i].GetComponentInChildren<CardScript>().RotateCard();
+            }
         }
-        //rotateall = true;
-        //cardsCounter = cardsInGame.Count;
+        else
+        {
+            Debug.Log("marti ets un gañan");
+        }
     }
 
     public void SetGridPreferences(bool i, Vector2 gs)
@@ -161,13 +199,18 @@ public class GridGenerator : MonoBehaviour {
         cardsInMovement--;
     }
 
-    public void CleanGrid()
+    public void CleanGrid(bool inGame)
     {
-        for (int i = 0; i < cardsInGame.Count; i++)
+        if(cardsInGame.Count != 0)
         {
-            Destroy(cardsInGame[i]);
+            for (int i = 0; i < cardsInGame.Count; i++)
+            {
+                Destroy(cardsInGame[i]);
+            }
+            cardsInGame.Clear();
         }
-        cardsInGame.Clear();
+        if(inGame)gridState = GridState.CLEANED;
+        else gridState = GridState.DISABLED;
     }
 
     public void RemoveTwoCards(CardScript card1, CardScript card2)

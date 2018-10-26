@@ -12,6 +12,15 @@ public class GameController : MonoBehaviour {
         INFINITE
     }
 
+    public enum GameState
+    {
+        DISABLED,
+        INITGAME,
+        GAMELOOP,
+        ENDGAME,
+        CHANGEMENU
+    }
+
     [System.Serializable]
     public struct GameSettings
     {
@@ -31,68 +40,111 @@ public class GameController : MonoBehaviour {
     
     float tbs;
     int pl = 0;
-    public bool inGame = false;
-    bool initGame = false;
+    public GameState gs = GameState.DISABLED;
+    //bool initGame = false;
 
     // Use this for initialization
     void Start () {
         //PlayerSettingsByDificult = new List<GameSettings>();
+        SetGamePref(GetComponent<ScoreManager>().GetCurrentDifficult());
         deltatime = 0;
     }
 	
 	// Update is called once per frame
 	void Update () {
-        if (inGame)
+        switch (gs)
         {
-            //Debug.Log(deltatime);
-            deltatime += 0.01f;
-            if (initGame)
-            {
-                //Debug.Log("initGame");
+            case GameState.DISABLED:
+                break;
+
+            case GameState.INITGAME:
+                deltatime += 0.01f;
                 if (deltatime > maxInVisT)
                 {
-                    GetComponent<GridGenerator>().RotateAllCards();
                     deltatime = 0;
-                    initGame = false;
+                    gs = GameState.DISABLED;
+                    GetComponent<GridGenerator>().RotateAllCards();
+                    GetComponent<GridGenerator>().gridState = GridGenerator.GridState.ALLCARDSSTOPED;
                     GetComponent<ScoreManager>().parseScore = true;
                 }
-            }
-            else
-            {
-                if (deltatime > tbs && tbs != 1 && 
-                    GetComponent<GridGenerator>().GetCardsInMovement()< (GetComponent<GridGenerator>().GetCardsInGame()-2))
+                break;
+
+            case GameState.GAMELOOP:
+                deltatime += 0.01f;
+
+                if (deltatime > tbs && tbs != 1 &&
+                    GetComponent<GridGenerator>().GetCardsInMovement() < (GetComponent<GridGenerator>().GetCardsInGame() - 2))
                 {
                     GetComponent<GridGenerator>().ShuffleTwoCards();
                     deltatime = 0;
                 }
-            }
-            if (CheckEndCondition())
-            {
+                if (CheckEndCondition()) gs = GameState.ENDGAME;
+                break;
+
+            case GameState.ENDGAME:
+                GetComponent<InputController>().DeactivateInput(false);
                 GetComponent<ScoreManager>().CompareScore();
+                GetComponent<GridGenerator>().CleanGrid(true);
+                gs = GameState.DISABLED;
+                break;
+
+            case GameState.CHANGEMENU:
                 GetComponent<InterfaceController>().SetRestartMenu();
-            }
+                gs = GameState.DISABLED;
+
+                break;
         }
+        //if (inGame)
+        //{
+        //    //Debug.Log(deltatime);
+        //    deltatime += 0.01f;
+        //    if (initGame)
+        //    {
+        //        //Debug.Log("initGame");
+        //        if (deltatime > maxInVisT)
+        //        {
+        //            GetComponent<GridGenerator>().RotateAllCards();
+        //            deltatime = 0;
+        //            initGame = false;
+        //            GetComponent<ScoreManager>().parseScore = true;
+        //        }
+        //    }
+        //    else
+        //    {
+        //        if (deltatime > tbs && tbs != 1 && 
+        //            GetComponent<GridGenerator>().GetCardsInMovement()< (GetComponent<GridGenerator>().GetCardsInGame()-2))
+        //        {
+        //            GetComponent<GridGenerator>().ShuffleTwoCards();
+        //            deltatime = 0;
+        //        }
+        //    }
+        //    if (CheckEndCondition())
+        //    {
+        //        GetComponent<ScoreManager>().CompareScore();
+        //        GetComponent<InterfaceController>().SetRestartMenu();
+        //    }
+        //}
     }
 
     public void StartGame(int d)
     {
         SetGamePref(d);
-        initGame = true;
         deltatime = 0.0f;
-       
+        gs = GameState.DISABLED;
         GetComponent<GridGenerator>().GenerateGrid();
     }
+
     public void ResetGame()
     {
-        inGame = false;
-        initGame = false;
+        gs = GameState.DISABLED;
         GetComponent<ScoreManager>().parseScore = false;
         deltatime = 0;
-        GetComponent<GridGenerator>().CleanGrid();
+        GetComponent<GridGenerator>().CleanGrid(false);
     }
 
     public void SetGamePref(int d)
     {
+        Debug.Log("setting game preferences");
         //set lifes
         pl = PlayerSettingsByDificult[d].playerLifes;
         //set if is infinite game and grid size
@@ -103,7 +155,7 @@ public class GameController : MonoBehaviour {
         maxInVisT = PlayerSettingsByDificult[d].maxInitVisibleTime;
         //set time btw shuffle
         tbs = PlayerSettingsByDificult[d].timeBtwShuffle;
-        GetComponent<ScoreManager>().maxTimeToComplete = PlayerSettingsByDificult[d].maxGameTime;
+        GetComponent<ScoreManager>().SetScoreValues(PlayerSettingsByDificult[d].maxGameTime, d);
     }
 
     bool CheckEndCondition()

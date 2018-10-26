@@ -2476,7 +2476,7 @@ MonoBehaviour:
     isInfinite: 0
     maxInitVisibleTime: 5
     timeBtwShuffle: 5
-    maxGameTime: 0
+    maxGameTime: -1
   - playerLifes: -1
     gridSize: {x: 4, y: 4}
     isInfinite: 0
@@ -2494,8 +2494,8 @@ MonoBehaviour:
     isInfinite: 1
     maxInitVisibleTime: 5
     timeBtwShuffle: 5
-    maxGameTime: 0
-  inGame: 0
+    maxGameTime: -1
+  gs: 0
 --- !u!4 &715941508
 Transform:
   m_ObjectHideFlags: 0
@@ -2527,6 +2527,7 @@ MonoBehaviour:
   - {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
   - {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
   gridSize: {x: 4, y: 4}
+  gridState: 0
 --- !u!114 &715941510
 MonoBehaviour:
   m_ObjectHideFlags: 0

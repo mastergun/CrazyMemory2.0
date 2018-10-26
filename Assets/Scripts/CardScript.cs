@@ -3,6 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CardScript : MonoBehaviour {
+    enum CardState
+    {
+        WAITING,
+        QUIET,
+        MOVING,
+        DYING,
+    }
 
     public int id;
     public Sprite cardTexture; //deprecated ?
@@ -21,6 +28,8 @@ public class CardScript : MonoBehaviour {
     bool b = false;
     public bool reversed = false;
 
+    //CardState cs = CardState.WAITING;
+
     // Use this for initialization
     void Start () {
         if(cardTexture != null) spriteRef.sprite = cardTexture;
@@ -28,6 +37,29 @@ public class CardScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        //switch (cs)
+        //{
+        //    case CardState.WAITING:
+        //        break;
+        //    case CardState.MOVING:
+        //        Vector3 newDir = (desiredPos - root.position).normalized;
+        //        if (Mathf.Cos(Vector3.Angle(dir, newDir)) < 0)
+        //        {
+        //            root.position = desiredPos;
+        //            moving = false;
+        //            cs = CardState.WAITING;
+        //            dir = Vector2.zero;
+        //            gridRef.CardEndMovement();
+        //        }
+        //        else root.position += dir * speed;
+
+        //        break;
+        //    case CardState.QUIET:
+        //        break;
+        //    case CardState.DYING:
+        //        break;
+
+        //}
         if (moving)
         {
             Vector3 newDir = (desiredPos - root.position).normalized;
@@ -40,7 +72,7 @@ public class CardScript : MonoBehaviour {
             }
             else root.position += dir * speed;
         }
-	}
+    }
 
     public void ResetCard()
     {
@@ -67,6 +99,7 @@ public class CardScript : MonoBehaviour {
         {
             gridPos = gp;
             moving = true;
+            //cs = CardState.MOVING;
             desiredPos.x = gridPos.x * cardSize.x;
             desiredPos.y = gridPos.y * cardSize.y;
             dir = (desiredPos - root.position).normalized;
