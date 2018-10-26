@@ -35,7 +35,7 @@ public class MenuController : MonoBehaviour {
     {
         DifficultSelected = smRef.GetCurrentDifficult();
         GetComponent<GameController>().SetGamePref(DifficultSelected);
-        SetCurrentScoreTexts();
+        SetCurrentScoreTexts(DifficultSelected);
     }
 
     public void SetMaxScoreTexts()
@@ -48,8 +48,9 @@ public class MenuController : MonoBehaviour {
                              DifficultSelected);
     }
 
-    public void SetCurrentScoreTexts()
+    public void SetCurrentScoreTexts(int d)
     {
+        DifficultSelected = d;
         bgRef.color = bgDifColors[DifficultSelected];
         textsInScreen[(int)TEXTS.DIFFICULT].text = difTittles[DifficultSelected];
         smRef.SetCurrentScoreScreen(textsInScreen[(int)TEXTS.SCOREPOINTS],

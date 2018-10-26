@@ -44,9 +44,11 @@ public class InputController : MonoBehaviour {
                 {
                     //add score
                     //remove cards from game
-                    GetComponent<GridGenerator>().RemoveTwoCards(
-                                                    cardsTurned[0],
-                                                    cardsTurned[1]);
+                    //GetComponent<GridGenerator>().RemoveTwoCards(
+                    //cardsTurned[0],
+                    //cardsTurned[1]);
+                    cardsTurned[0].bloqued = true;
+                    cardsTurned[1].bloqued = true;
                     turnedCardsCount = 0;
                     cardsTurned.Clear();
                     GetComponent<ScoreManager>().AddScore(true);

@@ -160,7 +160,8 @@ public class GameController : MonoBehaviour {
 
     bool CheckEndCondition()
     {
-        if (GetComponent<GridGenerator>().GetCardsInGame() <= 0) return true;
+        //if (GetComponent<GridGenerator>().GetCardsInGame() <= 0) return true;
+        if(GetComponent<GridGenerator>().AllCardsUncoveredCorrectly()) return true;
         else return false;
     }
 }

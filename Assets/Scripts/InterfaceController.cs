@@ -65,7 +65,8 @@ public class InterfaceController : MonoBehaviour {
     {
         Debug.Log("setting restart menu");
         SetMenu(MENUTYPE.RESTARTMENU);
-        menus[(int)MENUTYPE.RESTARTMENU].GetComponent<MenuController>().SetCurrentScoreTexts();
+        menus[(int)MENUTYPE.RESTARTMENU].GetComponent<MenuController>().SetCurrentScoreTexts(
+                                            GetComponent<ScoreManager>().GetCurrentDifficult());
         GetComponent<GameController>().ResetGame();
     }
 

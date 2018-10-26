@@ -234,4 +234,16 @@ public class GridGenerator : MonoBehaviour {
     {
         return cardsInMovement;
     }
+
+    public bool AllCardsUncoveredCorrectly()
+    {
+        for (int i = 0;i < cardsInGame.Count ;i++)
+        {
+            if (!cardsInGame[i].GetComponentInChildren<CardScript>().bloqued)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
 }
