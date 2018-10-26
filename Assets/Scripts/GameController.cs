@@ -94,36 +94,6 @@ public class GameController : MonoBehaviour {
 
                 break;
         }
-        //if (inGame)
-        //{
-        //    //Debug.Log(deltatime);
-        //    deltatime += 0.01f;
-        //    if (initGame)
-        //    {
-        //        //Debug.Log("initGame");
-        //        if (deltatime > maxInVisT)
-        //        {
-        //            GetComponent<GridGenerator>().RotateAllCards();
-        //            deltatime = 0;
-        //            initGame = false;
-        //            GetComponent<ScoreManager>().parseScore = true;
-        //        }
-        //    }
-        //    else
-        //    {
-        //        if (deltatime > tbs && tbs != 1 && 
-        //            GetComponent<GridGenerator>().GetCardsInMovement()< (GetComponent<GridGenerator>().GetCardsInGame()-2))
-        //        {
-        //            GetComponent<GridGenerator>().ShuffleTwoCards();
-        //            deltatime = 0;
-        //        }
-        //    }
-        //    if (CheckEndCondition())
-        //    {
-        //        GetComponent<ScoreManager>().CompareScore();
-        //        GetComponent<InterfaceController>().SetRestartMenu();
-        //    }
-        //}
     }
 
     public void StartGame(int d)

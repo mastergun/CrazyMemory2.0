@@ -15,6 +15,7 @@ public class ScoreManager : MonoBehaviour
         public int errors;
     }
 
+    public CardData cardsInfo;
     public Text inGameTimeScore;
     List<Score> maxScoreByDif;
 
@@ -41,6 +42,7 @@ public class ScoreManager : MonoBehaviour
             maxScoreByDif.Add(SetScoreInitScore());
             maxScoreByDif.Add(SetScoreInitScore());
             maxScoreByDif.Add(SetScoreInitScore());
+            cardsInfo.LoadData();
         }
     }
 
@@ -175,6 +177,7 @@ public class ScoreManager : MonoBehaviour
             score.errors = maxScoreByDif[i].errors;
             save.scores.Add(score);
         }
+        save.cards = cardsInfo.cards;
         save.firstTimeGame = firstTimeGame;
         return save;
     }

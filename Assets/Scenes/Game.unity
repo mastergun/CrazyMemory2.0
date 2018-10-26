@@ -2452,6 +2452,7 @@ GameObject:
   - component: {fileID: 715941510}
   - component: {fileID: 715941511}
   - component: {fileID: 715941512}
+  - component: {fileID: 715941513}
   m_Layer: 0
   m_Name: MainController
   m_TagString: Untagged
@@ -2527,6 +2528,7 @@ MonoBehaviour:
   - {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
   - {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
   gridSize: {x: 4, y: 4}
+  cardsData: {fileID: 715941513}
   gridState: 0
 --- !u!114 &715941510
 MonoBehaviour:
@@ -2569,10 +2571,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4361a60210bc65f43b8b703df617bd51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cardsInfo: {fileID: 715941513}
   inGameTimeScore: {fileID: 212393475}
   parseScore: 0
   pointsPerCard: 5
   maxTimeToComplete: 10
+--- !u!114 &715941513
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 715941506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 814cb70c4968caf498e39252286614c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cardSprites: []
 --- !u!1 &834122327
 GameObject:
   m_ObjectHideFlags: 0

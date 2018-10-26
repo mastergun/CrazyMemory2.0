@@ -12,6 +12,7 @@ public class CardScript : MonoBehaviour {
     }
 
     public int id;
+    public int spriteId;
     public Sprite cardTexture; //deprecated ?
 
     public SpriteRenderer spriteRef;
@@ -62,18 +63,6 @@ public class CardScript : MonoBehaviour {
                 break;
 
         }
-        //if (moving)
-        //{
-        //    Vector3 newDir = (desiredPos - root.position).normalized;
-        //    if (Mathf.Cos(Vector3.Angle(dir, newDir)) < 0)
-        //    {
-        //        root.position = desiredPos;
-        //        moving = false;
-        //        dir = Vector2.zero;
-        //        gridRef.CardEndMovement();
-        //    }
-        //    else root.position += dir * speed;
-        //}
     }
 
     public void ResetCard()
@@ -107,7 +96,6 @@ public class CardScript : MonoBehaviour {
             dir = (desiredPos - root.position).normalized;
         }
         else gridRef.CardEndMovement();
-
     }
 
     public Vector2 GetGridPos(bool grid)

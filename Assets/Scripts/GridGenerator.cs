@@ -15,6 +15,7 @@ public class GridGenerator : MonoBehaviour {
     public GameObject cardPrefab;
     public List<Sprite> textures;
     public Vector2 gridSize;
+    public CardData cardsData;
 
     List<GameObject> cardsInGame;
     bool isInfinite = false;
@@ -60,35 +61,21 @@ public class GridGenerator : MonoBehaviour {
                 }
                 break;
         }
-        //if (generatingGrid && cardsInMovement == 0)
-        //{
-        //    //start rotate cards
-        //    for(int i = 0;i < cardsInGame.Count; i++)
-        //    {
-        //        if (!cardsInGame[i].GetComponentInChildren<CardScript>().CanMove())
-        //        {
-        //            Debug.Log("wait until all cards are seted");
-        //            break;
-        //        }
-        //        if(i == (cardsInGame.Count - 1))
-        //        {
-        //            RotateAllCards();
-        //            generatingGrid = false;
-                    
-        //        }
-        //    }
-            
-        //}
     }
 
     public void GenerateGrid()
     {
         int idCounter = 0;
+
+        //create a list of cards
+        //List<int> cardIds = cardsData.SetGridCards((((int)gridSize.x * (int)gridSize.y)/2),textures);
+
         //generate the cards, set the id and the textures
         for (int k = 1; k <= (gridSize.x * gridSize.y); k++)
         {
             idCounter += k%2;
-            cardsInGame.Add(InicializeCard(idCounter - 1, textures[(idCounter - 1)%4]));
+            cardsInGame.Add(InicializeCard(idCounter - 1,0, textures[(idCounter - 1)%4]));
+            //cardsInGame.Add(InicializeCard(idCounter - 1,cardIds[idCounter-1], textures[idCounter - 1]));
         }
         //shuffle the list
         Shuffle(cardsInGame);
@@ -110,13 +97,14 @@ public class GridGenerator : MonoBehaviour {
         
     }
 
-    public GameObject InicializeCard(int id, Sprite texture)
+    public GameObject InicializeCard(int id,int spriteId, Sprite texture)
     {
         GameObject card;
         Vector3 position = Vector3.zero;
         card = (GameObject)Instantiate(cardPrefab, position, transform.rotation);
         card.GetComponentInChildren<CardScript>().gridRef = this;
         card.GetComponentInChildren<CardScript>().id = id;
+        card.GetComponentInChildren<CardScript>().spriteId = spriteId;
         card.GetComponentInChildren<CardScript>().SetCardTexture(texture);
         return card;
     }
