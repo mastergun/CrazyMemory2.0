@@ -33,6 +33,7 @@ public class InterfaceController : MonoBehaviour {
         SetMenu(MENUTYPE.MAINMENU);
         GetComponent<GameController>().ResetGame();
         GetComponent<ScoreManager>().ResetCurrentScore();
+        Debug.Log("current menu type is " + MENUTYPE.MAINMENU);
         //menus[(int)MENUTYPE.MAINMENU].GetComponent<MainMenuController>().SetMaxScoreTexts();
     }
 

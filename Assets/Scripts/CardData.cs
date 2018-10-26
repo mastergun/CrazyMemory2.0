@@ -11,6 +11,7 @@ public class CardData : MonoBehaviour {
         public bool unlocked;
     }
 
+    public TextAsset d;
     public List<Data> cards = new List<Data>();
     public List<Sprite> cardSprites = new List<Sprite>();
 
@@ -18,10 +19,9 @@ public class CardData : MonoBehaviour {
 
     public void LoadData()
     {
-        TextAsset d = Resources.Load<TextAsset>("CardsData");
         string[] allData = d.text.Split(new char[] { '\n' });
 
-        for (int i = 0; i < allData.Length - 1; i++)
+        for (int i = 1; i < allData.Length; i++)
         {
             string[] row = allData[i].Split(new char[] { ',' });
             if (row[1] != "")
@@ -30,7 +30,7 @@ public class CardData : MonoBehaviour {
                 int.TryParse(row[0], out lineData.id);
                 lineData.name = row[1];
                 lineData.description = row[2];
-
+                Debug.Log(row[0]+ " his name is: " + row[1] + " his description is: " + row[2]);
                 cards.Add(lineData);
             }
         }

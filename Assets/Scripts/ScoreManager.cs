@@ -65,11 +65,6 @@ public class ScoreManager : MonoBehaviour
         }
     }
 
-    //public void ResetScore()
-    //{
-
-    //}
-
     public void SetScoreValues(float maxTime, int dif)
     {
         maxTimeToComplete = maxTime;
@@ -91,13 +86,18 @@ public class ScoreManager : MonoBehaviour
 
     public void CompareScore()
     {
-        if(currentScore.points > maxScoreByDif[currentDificult].points ||
-            currentScore.time < maxScoreByDif[currentDificult].time||
-            currentScore.points < maxScoreByDif[currentDificult].errors)
+        if(currentScore.points >= maxScoreByDif[currentDificult].points)
         {
-            Debug.Log("max score raised!!");
-            SetMaxScore(currentScore.points, currentScore.time, currentScore.errors, currentDificult);
+            if (currentScore.time <= maxScoreByDif[currentDificult].time)
+            {
+                if (currentScore.errors < maxScoreByDif[currentDificult].errors)
+                {
+                    Debug.Log("max score raised!!");
+                    SetMaxScore(currentScore.points, currentScore.time, currentScore.errors, currentDificult);
+                }
+            }
         }
+            
     }
 
     public void ResetCurrentScore()

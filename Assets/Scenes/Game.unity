@@ -2587,6 +2587,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 814cb70c4968caf498e39252286614c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  d: {fileID: 4900000, guid: 98f19268dd0caa444b275e871a2298c3, type: 3}
   cardSprites: []
 --- !u!1 &834122327
 GameObject:
