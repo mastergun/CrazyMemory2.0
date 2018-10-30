@@ -29,7 +29,7 @@ public class GridGenerator : MonoBehaviour {
     }
 	
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate() {
         switch (gridState)
         {
             case GridState.DISABLED:
@@ -68,13 +68,14 @@ public class GridGenerator : MonoBehaviour {
         int idCounter = 0;
 
         //create a list of cards
-        //List<int> cardIds = cardsData.SetGridCards((((int)gridSize.x * (int)gridSize.y)/2),textures);
-
+        List<int> cardIdsInGame = cardsData.SetGridCards((((int)gridSize.x * (int)gridSize.y) / 2), textures);
+        Debug.Log("cards loaded "+ cardIdsInGame.Count);
         //generate the cards, set the id and the textures
         for (int k = 1; k <= (gridSize.x * gridSize.y); k++)
         {
             idCounter += k%2;
-            cardsInGame.Add(InicializeCard(idCounter - 1,0, textures[(idCounter - 1)%4]));
+            Debug.Log("idCounter is : " + idCounter);
+            cardsInGame.Add(InicializeCard(idCounter - 1,cardIdsInGame[idCounter -1], textures[(idCounter - 1)]));
             //cardsInGame.Add(InicializeCard(idCounter - 1,cardIds[idCounter-1], textures[idCounter - 1]));
         }
         //shuffle the list
@@ -102,8 +103,11 @@ public class GridGenerator : MonoBehaviour {
         GameObject card;
         Vector3 position = Vector3.zero;
         card = (GameObject)Instantiate(cardPrefab, position, transform.rotation);
+        //card.GetComponentInParent<Transform>().localScale = new Vector2(Screen.width /(512f), Screen.width / (512f));
         card.GetComponentInChildren<CardScript>().gridRef = this;
         card.GetComponentInChildren<CardScript>().id = id;
+        //Debug.Log("grid id: "+id);
+        //Debug.Log("sprite id: "+ spriteId);
         card.GetComponentInChildren<CardScript>().spriteId = spriteId;
         card.GetComponentInChildren<CardScript>().SetCardTexture(texture);
         return card;

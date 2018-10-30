@@ -8,6 +8,7 @@ public class CardData : MonoBehaviour {
         public int id;
         public string name;
         public string description;
+        public int rarity;
         public bool unlocked;
     }
 
@@ -30,7 +31,10 @@ public class CardData : MonoBehaviour {
                 int.TryParse(row[0], out lineData.id);
                 lineData.name = row[1];
                 lineData.description = row[2];
-                Debug.Log(row[0]+ " his name is: " + row[1] + " his description is: " + row[2]);
+                int.TryParse(row[3], out lineData.rarity);
+                bool.TryParse(row[4], out lineData.unlocked);
+                //Debug.Log(lineData.id+ " his name is: " +lineData.name + " his description is: " + lineData.description + 
+                   // " rarity: " + lineData.rarity + " is unlocked ? : "+ lineData.unlocked );
                 cards.Add(lineData);
             }
         }
@@ -42,6 +46,7 @@ public class CardData : MonoBehaviour {
         d.id = cards[id].id;
         d.name = cards[id].name;
         d.description = cards[id].description;
+        d.rarity = cards[id].rarity;
         d.unlocked = u;
         cards[id] = d;
     }
@@ -50,16 +55,23 @@ public class CardData : MonoBehaviour {
     {
         List<int> ids = new List<int>();
         spriteListRef.Clear();
-
+        
         int j = 0;
-        while (j < (cardsInGrid -1))
+        while (j < (cardsInGrid))
         {
             if (ids.Count == cardsInGrid) break;
             int id = Random.Range(0, cardSprites.Count - 1);
-            for (int k = 0; k < ids.Count; k++) if (ids[k] == id) break;
-            ids.Add(id);
-            spriteListRef.Add(cardSprites[id]);
-            j++;
+            bool repited = false;
+            for (int k = 0; k < ids.Count; k++) if (ids[k] == id) {
+                    repited = true;
+                    break;
+            }
+            if (!repited)
+            {
+                ids.Add(id);
+                spriteListRef.Add(cardSprites[id]);
+                j++;
+            }
         }
         return ids;
     }
