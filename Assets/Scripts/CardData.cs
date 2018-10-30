@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CardData : MonoBehaviour {
+    [System.Serializable]
     public struct Data
     {
         public int id;
@@ -38,6 +39,7 @@ public class CardData : MonoBehaviour {
                 cards.Add(lineData);
             }
         }
+        //this.GetComponent<GaleryController>().InicializeCardsInGalery();
     }
 
     public void SetCardInfo(int id, bool u)

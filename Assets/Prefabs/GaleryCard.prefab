@@ -25,7 +25,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1252625690078332
 GameObject:
   m_ObjectHideFlags: 0
@@ -36,6 +36,7 @@ GameObject:
   - component: {fileID: 224605261236372870}
   - component: {fileID: 222463142229932758}
   - component: {fileID: 114626520595568858}
+  - component: {fileID: 114126014501744838}
   m_Layer: 0
   m_Name: GaleryCard
   m_TagString: Untagged
@@ -54,7 +55,7 @@ GameObject:
   - component: {fileID: 222371180567131650}
   - component: {fileID: 114148055563684024}
   m_Layer: 0
-  m_Name: Image
+  m_Name: Reverse
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -71,7 +72,7 @@ GameObject:
   - component: {fileID: 222511195172559580}
   - component: {fileID: 114281121595211604}
   m_Layer: 0
-  m_Name: Image
+  m_Name: Monster
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -91,7 +92,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1596798418219342
 GameObject:
   m_ObjectHideFlags: 1
@@ -193,6 +194,24 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Cerbero
+--- !u!114 &114126014501744838
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1252625690078332}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99e3f4b853f87c64f8898b6eeb979f74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unlockedFace: {fileID: 1167888334491134}
+  lockedFace: {fileID: 1592014238147910}
+  CardTexts:
+  - {fileID: 114072209913104936}
+  - {fileID: 114631961835369210}
+  monster: {fileID: 114281121595211604}
+  reverse: {fileID: 114148055563684024}
 --- !u!114 &114148055563684024
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -542,7 +561,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.55013, y: -58}
+  m_AnchoredPosition: {x: 0.55010986, y: -58}
   m_SizeDelta: {x: -1416.8, y: -260.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224648083125468938
@@ -577,8 +596,8 @@ RectTransform:
   m_Father: {fileID: 224048454334953196}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.000030518, y: -8}
-  m_SizeDelta: {x: 310.82, y: 521.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0.000030518, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}

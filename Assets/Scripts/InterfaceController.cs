@@ -34,12 +34,14 @@ public class InterfaceController : MonoBehaviour {
         GetComponent<GameController>().ResetGame();
         GetComponent<ScoreManager>().ResetCurrentScore();
         Debug.Log("current menu type is " + MENUTYPE.MAINMENU);
+        //this.GetComponent<GaleryController>().ActivateCardsInGalery(false);
         //menus[(int)MENUTYPE.MAINMENU].GetComponent<MainMenuController>().SetMaxScoreTexts();
     }
 
     public void SetGalleryMenu()
     {
         SetMenu(MENUTYPE.GALERYMENU);
+        //this.GetComponent<GaleryController>().ActivateCardsInGalery(true);
     }
 
     public void SetTeamMenu()

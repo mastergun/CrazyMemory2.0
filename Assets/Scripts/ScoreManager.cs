@@ -86,18 +86,11 @@ public class ScoreManager : MonoBehaviour
 
     public void CompareScore()
     {
-        if(currentScore.points >= maxScoreByDif[currentDificult].points)
+        if(currentScore.points >= maxScoreByDif[currentDificult].points || currentScore.time <= maxScoreByDif[currentDificult].time)
         {
-            if (currentScore.time <= maxScoreByDif[currentDificult].time)
-            {
-                if (currentScore.errors < maxScoreByDif[currentDificult].errors)
-                {
-                    Debug.Log("max score raised!!");
-                    SetMaxScore(currentScore.points, currentScore.time, currentScore.errors, currentDificult);
-                }
-            }
-        }
-            
+            Debug.Log("max score raised!!");
+            SetMaxScore(currentScore.points, currentScore.time, currentScore.errors, currentDificult);
+        }      
     }
 
     public void ResetCurrentScore()
@@ -193,6 +186,8 @@ public class ScoreManager : MonoBehaviour
             s.errors = save.scores[i].errors;
             maxScoreByDif.Add(s);
         }
+        cardsInfo.cards = save.cards;
+        //this.GetComponent<GaleryController>().InicializeCardsInGalery();
         firstTimeGame = save.firstTimeGame;
     }
 
