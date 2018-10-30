@@ -207,11 +207,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unlockedFace: {fileID: 1167888334491134}
   lockedFace: {fileID: 1592014238147910}
+  controllerRef: {fileID: 0}
   CardTexts:
   - {fileID: 114072209913104936}
   - {fileID: 114631961835369210}
   monster: {fileID: 114281121595211604}
   reverse: {fileID: 114148055563684024}
+  speed: 15
 --- !u!114 &114148055563684024
 MonoBehaviour:
   m_ObjectHideFlags: 1

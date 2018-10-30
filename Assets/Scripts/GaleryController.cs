@@ -10,7 +10,11 @@ public class GaleryController : MonoBehaviour {
     public List<Sprite> raritySprite;
     public List<Color> rarityColor;
 
-    List<GameObject> cardsInGalery;
+    public List<GameObject> cardsInGalery;
+
+    public float distBetweenCards = 600;
+    int centredCard = 0;
+    public int cardsInMovement;
 
     bool created = false;
 	// Use this for initialization
@@ -25,7 +29,7 @@ public class GaleryController : MonoBehaviour {
         {
             if(this.GetComponent<CardData>().cards.Count != 0)
             {
-                Debug.Log("inicializing galery cards");
+                //Debug.Log("inicializing galery cards");
                 InicializeCardsInGalery();
                 created = true;
                 //unlockAll();
@@ -40,6 +44,7 @@ public class GaleryController : MonoBehaviour {
         card.GetComponent<GaleryCardScript>().SetCardInfo(
                 cardInfo, this.GetComponent<CardData>().cardSprites[cardInfo.id], 
                 raritySprite[cardInfo.rarity], rarityColor[cardInfo.rarity]);
+        card.GetComponent<GaleryCardScript>().controllerRef = this;
         card.transform.SetParent(galeryMenu.transform, false);
         card.transform.position = new Vector3(Screen.width / 2 + pos, Screen.height / 2, 0);
 
@@ -77,5 +82,19 @@ public class GaleryController : MonoBehaviour {
 
     void unlockAll() {
         for (int i = 0; i < cardsInGalery.Count; i++) cardsInGalery[i].GetComponent<GaleryCardScript>().UnlockCard();
+    }
+
+     public void MoveCards(bool right)
+    {
+        if (cardsInMovement != 0) return;
+        float distToMove = distBetweenCards;
+        if (!right) distToMove = -distToMove;
+        if ((!right && centredCard == (cardsInGalery.Count - 1)) || (right && centredCard == 0)) return;
+        for (int i=0;i< cardsInGalery.Count ;i++)
+        {
+            cardsInGalery[i].GetComponent<GaleryCardScript>().MoveCard(distToMove);
+        }
+        if (right) centredCard++;
+        else centredCard--;
     }
 }

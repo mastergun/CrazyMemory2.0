@@ -44,9 +44,7 @@ public class InputController : MonoBehaviour {
                 {
                     //add score
                     //remove cards from game
-                    //GetComponent<GridGenerator>().RemoveTwoCards(
-                    //cardsTurned[0],
-                    //cardsTurned[1]);
+                    this.GetComponent<GridGenerator>().LastIdMonsterUncovered = cardsTurned[0].spriteId;
                     cardsTurned[0].bloqued = true;
                     cardsTurned[1].bloqued = true;
                     turnedCardsCount = 0;

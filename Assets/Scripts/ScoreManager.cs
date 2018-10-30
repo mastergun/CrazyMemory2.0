@@ -81,16 +81,18 @@ public class ScoreManager : MonoBehaviour
         s.errors = errors;
         maxScoreByDif[dificult] = s;
         firstTimeGame = false;
-        SaveGame();
+        //SaveGame();
     }
 
-    public void CompareScore()
+    public bool CompareScore()
     {
         if(currentScore.points >= maxScoreByDif[currentDificult].points || currentScore.time <= maxScoreByDif[currentDificult].time)
         {
             Debug.Log("max score raised!!");
             SetMaxScore(currentScore.points, currentScore.time, currentScore.errors, currentDificult);
-        }      
+            return true;
+        }
+        return false;
     }
 
     public void ResetCurrentScore()

@@ -33,7 +33,7 @@ public class InterfaceController : MonoBehaviour {
         SetMenu(MENUTYPE.MAINMENU);
         GetComponent<GameController>().ResetGame();
         GetComponent<ScoreManager>().ResetCurrentScore();
-        Debug.Log("current menu type is " + MENUTYPE.MAINMENU);
+        //Debug.Log("current menu type is " + MENUTYPE.MAINMENU);
         //this.GetComponent<GaleryController>().ActivateCardsInGalery(false);
         //menus[(int)MENUTYPE.MAINMENU].GetComponent<MainMenuController>().SetMaxScoreTexts();
     }
@@ -60,7 +60,7 @@ public class InterfaceController : MonoBehaviour {
         SetMenu(MENUTYPE.GAMEMENU);
         GetComponent<ScoreManager>().ResetCurrentScore();
         GetComponent<ScoreManager>().ResetGameScoreText();
-        Debug.Log("current dificult is" + GetComponent<ScoreManager>().GetCurrentDifficult());
+        //Debug.Log("current dificult is" + GetComponent<ScoreManager>().GetCurrentDifficult());
         GetComponent<GameController>().StartGame(GetComponent<ScoreManager>().GetCurrentDifficult());
     }
 

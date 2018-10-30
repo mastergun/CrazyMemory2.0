@@ -22,6 +22,8 @@ public class GridGenerator : MonoBehaviour {
     //bool generatingGrid = false;
     public GridState gridState = GridState.DISABLED;
     int cardsInMovement = 0;
+
+    public int LastIdMonsterUncovered = 0;
 	// Use this for initialization
 	void Start () {
         cardsInGame = new List<GameObject>();
@@ -74,7 +76,7 @@ public class GridGenerator : MonoBehaviour {
         for (int k = 1; k <= (gridSize.x * gridSize.y); k++)
         {
             idCounter += k%2;
-            Debug.Log("idCounter is : " + idCounter);
+            //Debug.Log("idCounter is : " + idCounter);
             cardsInGame.Add(InicializeCard(idCounter - 1,cardIdsInGame[idCounter -1], textures[(idCounter - 1)]));
             //cardsInGame.Add(InicializeCard(idCounter - 1,cardIds[idCounter-1], textures[idCounter - 1]));
         }

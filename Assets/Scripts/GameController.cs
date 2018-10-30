@@ -83,8 +83,14 @@ public class GameController : MonoBehaviour {
                 break;
 
             case GameState.ENDGAME:
+                if (!this.GetComponent<CardData>().cards[this.GetComponent<GridGenerator>().LastIdMonsterUncovered].unlocked)
+                {
+                    this.GetComponent<CardData>().SetCardInfo(this.GetComponent<GridGenerator>().LastIdMonsterUncovered, true);
+                    this.GetComponent<GaleryController>().cardsInGalery[this.GetComponent<GridGenerator>().LastIdMonsterUncovered].GetComponent<GaleryCardScript>().UnlockCard();
+                }
                 GetComponent<InputController>().DeactivateInput(false);
                 GetComponent<ScoreManager>().CompareScore();
+                GetComponent<ScoreManager>().SaveGame();
                 GetComponent<GridGenerator>().CleanGrid(true);
                 gs = GameState.DISABLED;
                 break;
