@@ -91,7 +91,7 @@ public class ScoreManager : MonoBehaviour
     {
         if(currentScore.points > maxScoreByDif[currentDificult].points || currentScore.time < maxScoreByDif[currentDificult].time)
         {
-            Debug.Log("max score raised!! time : " + currentScore.time + " points : " + currentScore.points);
+            //Debug.Log("max score raised!! time : " + currentScore.time + " points : " + currentScore.points);
              
             SetMaxScore(currentScore.points, currentScore.time, currentScore.errors, currentDificult);
             restartMenu.ActivateHighScoreBG(true);

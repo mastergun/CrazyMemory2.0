@@ -41,6 +41,7 @@ public class GameController : MonoBehaviour {
     float maxInVisT;
     
     float tbs;
+    int publiCounter = 0;
     public GameState gs = GameState.DISABLED;
     //bool initGame = false;
 
@@ -103,7 +104,9 @@ public class GameController : MonoBehaviour {
                 break;
 
             case GameState.CHANGEMENU:
+                publiCounter++;
                 GetComponent<InterfaceController>().SetRestartMenu();
+                if (publiCounter % 3 == 2) GetComponent<InicializerScript>().ShowInterstitial();
                 gs = GameState.DISABLED;
 
                 break;
@@ -121,6 +124,7 @@ public class GameController : MonoBehaviour {
     public void StartGame(int d)
     {
         SetGamePref(d);
+        GetComponent<InicializerScript>().ShowBanner();
         deltatime = 0.0f;
         if (GetComponent<GridGenerator>().isInfinite)
         {

@@ -13,6 +13,7 @@ public class InicializerScript : MonoBehaviour {
     {
 #if UNITY_ANDROID
         string appId = "ca-app-pub-8875687836686988~4189723037";
+        
         //#elif UNITY_IPHONE
         //    string appId = "ca-app-pub-3940256099942544~1458002511";
 #else
@@ -21,8 +22,6 @@ public class InicializerScript : MonoBehaviour {
 
         // Initialize the Google Mobile Ads SDK.
         MobileAds.Initialize(appId);
-
-
     }
 
 
@@ -31,9 +30,15 @@ public class InicializerScript : MonoBehaviour {
     {
 
     }
+
     public void ShowBanner()
     {
         this.RequestBanner();
+    }
+
+    public void ShowInterstitial()
+    {
+        this.RequestInterstitial();
     }
 
     private void RequestBanner()
@@ -41,7 +46,7 @@ public class InicializerScript : MonoBehaviour {
 #if UNITY_EDITOR
         string adUnitId = "unused";
 #elif UNITY_ANDROID
-            string adUnitId = "ca-app-pub-8875687836686988/1453020698";
+            string adUnitId = "ca-app-pub-8875687836686988/9543051672";
 #elif UNITY_IPHONE
               //string adUnitId = "ca-app-pub-3940256099942544/2934735716";
 #else
@@ -72,6 +77,46 @@ public class InicializerScript : MonoBehaviour {
 
         // Load the banner with the request.
         bannerView.LoadAd(request);
+
+        // Called when an ad request has successfully loaded.
+    }
+
+    private void RequestInterstitial()
+    {
+#if UNITY_EDITOR
+        string adUnitId = "unused";
+#elif UNITY_ANDROID
+            string adUnitId = "ca-app-pub-8875687836686988/4084386027";
+#elif UNITY_IPHONE
+              //string adUnitId = "ca-app-pub-3940256099942544/2934735716";
+#else
+          string adUnitId = "unexpected_platform";
+#endif
+        if (this.interstitial != null)
+        {
+            this.interstitial.Destroy();
+        }
+
+        // Create a 320x50 banner at the top of the screen.
+        interstitial = new InterstitialAd(adUnitId);
+
+        //AdRequest request = new AdRequest.Builder()
+        //.AddTestDevice(AdRequest.TestDeviceSimulator)
+        //.AddTestDevice("ca-app-pub-3940256099942544/6300978111")
+        //.Build();
+        // Create an empty ad request.
+        AdRequest request = new AdRequest.Builder().Build();
+
+
+        // Register for ad events.
+        this.interstitial.OnAdLoaded += this.HandleAdLoaded;
+        this.interstitial.OnAdFailedToLoad += this.HandleAdFailedToLoad;
+        this.interstitial.OnAdOpening += this.HandleAdOpened;
+        this.interstitial.OnAdClosed += this.HandleAdClosed;
+        this.interstitial.OnAdLeavingApplication += this.HandleAdLeftApplication;
+
+        // Load the banner with the request.
+        interstitial.LoadAd(request);
 
         // Called when an ad request has successfully loaded.
     }

@@ -60,6 +60,7 @@ public class InputController : MonoBehaviour {
                         cardsTurned[1].RotateCard();
                         turnedCardsCount = 0;
                         cardsTurned.Clear();
+                        cameraRef.GetComponentInParent<CameraShaker>().MakeCameraShake();
                         GetComponent<ScoreManager>().AddScore(false);
                         if (GetComponent<GridGenerator>().isInfinite)
                         {
