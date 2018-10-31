@@ -15,9 +15,12 @@ public class ScoreManager : MonoBehaviour
         public int errors;
     }
 
+    public MenuController restartMenu;
     public CardData cardsInfo;
+    public Text inGameDificult;
     public Text inGameTimeScore;
     List<Score> maxScoreByDif;
+    public List<string> dificultNames;
 
     int currentDificult;
     Score currentScore;
@@ -86,10 +89,12 @@ public class ScoreManager : MonoBehaviour
 
     public bool CompareScore()
     {
-        if(currentScore.points >= maxScoreByDif[currentDificult].points || currentScore.time <= maxScoreByDif[currentDificult].time)
+        if(currentScore.points > maxScoreByDif[currentDificult].points || currentScore.time < maxScoreByDif[currentDificult].time)
         {
-            Debug.Log("max score raised!!");
+            Debug.Log("max score raised!! time : " + currentScore.time + " points : " + currentScore.points);
+             
             SetMaxScore(currentScore.points, currentScore.time, currentScore.errors, currentDificult);
+            restartMenu.ActivateHighScoreBG(true);
             return true;
         }
         return false;
@@ -132,7 +137,7 @@ public class ScoreManager : MonoBehaviour
     public void SetScoreScreen(Text points, Text time, Text errors, int dif)
     {
         points.text = maxScoreByDif[dif].points.ToString();
-        time.text = maxScoreByDif[dif].time.ToString() + " s";
+        time.text = maxScoreByDif[dif].time.ToString("F1") + " s";
         errors.text = maxScoreByDif[dif].errors.ToString();
         currentDificult = dif;
         //Debug.Log("max score texts setted");
@@ -141,7 +146,7 @@ public class ScoreManager : MonoBehaviour
     public void SetCurrentScoreScreen(Text points, Text time, Text errors)
     {
         points.text = currentScore.points.ToString();
-        time.text = currentScore.time.ToString() + " s";
+        time.text = currentScore.time.ToString("F1") + " s";
         errors.text = currentScore.errors.ToString();
     }
 
@@ -229,6 +234,10 @@ public class ScoreManager : MonoBehaviour
         }
     }
 
+    public void SetDificultText()
+    {
+        inGameDificult.text = dificultNames[currentDificult];
+    }
 
 }
 

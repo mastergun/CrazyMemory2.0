@@ -87,7 +87,7 @@ public class GameController : MonoBehaviour {
 
             case GameState.ENDGAME:
                 if (!this.GetComponent<CardData>().cards[this.GetComponent<GridGenerator>().LastIdMonsterUncovered].unlocked &&
-                    !GetComponent<GridGenerator>().isInfinite)
+                    !GetComponent<GridGenerator>().isInfinite && GetComponent<GridGenerator>().AllCardsUncoveredCorrectly())
                 {
                     this.GetComponent<CardData>().SetCardInfo(this.GetComponent<GridGenerator>().LastIdMonsterUncovered, true);
                     this.GetComponent<GaleryController>().cardsInGalery[this.GetComponent<GridGenerator>().LastIdMonsterUncovered].GetComponent<GaleryCardScript>().UnlockCard();
@@ -152,6 +152,7 @@ public class GameController : MonoBehaviour {
         //set time btw shuffle
         tbs = PlayerSettingsByDificult[d].timeBtwShuffle;
         GetComponent<ScoreManager>().SetScoreValues(PlayerSettingsByDificult[d].maxGameTime, d);
+        GetComponent<ScoreManager>().SetDificultText();
     }
 
     bool CheckEndCondition()

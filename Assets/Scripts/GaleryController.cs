@@ -12,7 +12,7 @@ public class GaleryController : MonoBehaviour {
 
     public List<GameObject> cardsInGalery;
 
-    public float distBetweenCards = 600;
+    float distBetweenCards = 0;
     int centredCard = 0;
     public int cardsInMovement;
 
@@ -20,7 +20,7 @@ public class GaleryController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         cardsInGalery = new List<GameObject>();
-
+        distBetweenCards = Screen.currentResolution.width / 2.5f;
     }
 	
 	// Update is called once per frame
@@ -55,9 +55,10 @@ public class GaleryController : MonoBehaviour {
     {
         if(cardsInGalery.Count == 0)
         {
+            //Debug.Log(distBetweenCards);
             for (int i = 0; i < this.GetComponent<CardData>().cards.Count; i++)
             {
-                cardsInGalery.Add(InicializeGaleryCard(this.GetComponent<CardData>().cards[i], 600 * i));
+                cardsInGalery.Add(InicializeGaleryCard(this.GetComponent<CardData>().cards[i], distBetweenCards * i));
             }
         }
         else
@@ -101,5 +102,6 @@ public class GaleryController : MonoBehaviour {
         Debug.Log("centred card is " + centredCard);
         if (right) centredCard--;
         else centredCard++;
+        if(this.GetComponent<CardData>().cards[centredCard].unlocked) GetComponent<AudioManager>().PlayMonsterSound(centredCard);
     }
 }

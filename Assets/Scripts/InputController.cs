@@ -50,6 +50,7 @@ public class InputController : MonoBehaviour {
                     turnedCardsCount = 0;
                     cardsTurned.Clear();
                     GetComponent<ScoreManager>().AddScore(true);
+                    GetComponent<InterfaceController>().InstantiatePlusScore(Input.mousePosition);
                 }
                 else
                 {

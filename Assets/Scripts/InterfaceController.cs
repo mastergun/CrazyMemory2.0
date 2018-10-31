@@ -17,9 +17,11 @@ public class InterfaceController : MonoBehaviour {
     }
 
     public GameObject livePrefab;
+    public GameObject addScorePrefab;
+
     public GameObject livePanelRoot;
     public GameObject liveInitPos;
-    public float distanceBTWLives;
+    float distanceBTWLives;
     List<GameObject> livesInGame;
 
     public List<GameObject> menus;
@@ -28,6 +30,7 @@ public class InterfaceController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         livesInGame = new List<GameObject>();
+        distanceBTWLives = Screen.currentResolution.height / 8;
         SetMainMenu();
     }
 	
@@ -41,6 +44,7 @@ public class InterfaceController : MonoBehaviour {
         SetMenu(MENUTYPE.MAINMENU);
         GetComponent<GameController>().ResetGame();
         GetComponent<ScoreManager>().ResetCurrentScore();
+        GetComponent<InputController>().ResetInputController();
         //Debug.Log("current menu type is " + MENUTYPE.MAINMENU);
         //this.GetComponent<GaleryController>().ActivateCardsInGalery(false);
         if (openingGame) menus[(int)MENUTYPE.MAINMENU].GetComponent<MainMenuController>().SetMaxScoreTexts();
@@ -68,6 +72,7 @@ public class InterfaceController : MonoBehaviour {
         SetMenu(MENUTYPE.GAMEMENU);
         GetComponent<ScoreManager>().ResetCurrentScore();
         GetComponent<ScoreManager>().ResetGameScoreText();
+        menus[(int)MENUTYPE.RESTARTMENU].GetComponent<MenuController>().ActivateHighScoreBG(false);
         //Debug.Log("current dificult is" + GetComponent<ScoreManager>().GetCurrentDifficult());
         GetComponent<GameController>().StartGame(GetComponent<ScoreManager>().GetCurrentDifficult());
     }
@@ -101,8 +106,16 @@ public class InterfaceController : MonoBehaviour {
         liveHUD = (GameObject)Instantiate(livePrefab, Vector3.zero, transform.rotation);
         liveHUD.transform.SetParent(livePanelRoot.transform, false);
         liveHUD.transform.position = new Vector3(liveInitPos.transform.position.x, liveInitPos.transform.position.y - pos, 0);
-        liveHUD.transform.localScale *= 3;
+        //liveHUD.transform.localScale *= 3;
         return liveHUD;
+    }
+
+    public void InstantiatePlusScore(Vector3 pos)
+    {
+        GameObject plusScore;
+        plusScore = (GameObject)Instantiate(addScorePrefab, Vector3.zero, transform.rotation);
+        plusScore.transform.SetParent(livePanelRoot.transform, false);
+        plusScore.transform.position = pos;
     }
 
     public void RemoveLife()

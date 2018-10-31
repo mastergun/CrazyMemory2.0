@@ -57,7 +57,7 @@ public class GridGenerator : MonoBehaviour {
                 
                 if (cardsInMovement == 0)
                 {
-                    Debug.Log("all cards still stoped");
+                    //Debug.Log("all cards still stoped");
                     gridState = GridState.DISABLED;
                     GetComponent<InputController>().DeactivateInput(true);
                     GetComponent<GameController>().gs = GameController.GameState.GAMELOOP;

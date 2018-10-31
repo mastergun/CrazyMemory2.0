@@ -41,13 +41,12 @@ public class InicializerScript : MonoBehaviour {
 #if UNITY_EDITOR
         string adUnitId = "unused";
 #elif UNITY_ANDROID
-            //string adUnitId = "ca-app-pub-8875687836686988/1453020698";
+            string adUnitId = "ca-app-pub-8875687836686988/1453020698";
 #elif UNITY_IPHONE
               //string adUnitId = "ca-app-pub-3940256099942544/2934735716";
 #else
           string adUnitId = "unexpected_platform";
 #endif
-
         if (this.bannerView != null)
         {
             this.bannerView.Destroy();

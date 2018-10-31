@@ -15,6 +15,7 @@ public class MenuController : MonoBehaviour {
 
     public ScoreManager smRef;
     public Image bgRef;
+    public GameObject HighScore;
 
     public List<Text> textsInScreen;
     public List<Color> bgDifColors;
@@ -56,5 +57,10 @@ public class MenuController : MonoBehaviour {
         smRef.SetCurrentScoreScreen(textsInScreen[(int)TEXTS.SCOREPOINTS],
                              textsInScreen[(int)TEXTS.SCORETIME],
                              textsInScreen[(int)TEXTS.SCOREERRORS]);
+    }
+
+    public void ActivateHighScoreBG(bool activate)
+    {
+        HighScore.SetActive(activate);
     }
 }
