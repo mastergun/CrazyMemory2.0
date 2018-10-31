@@ -18,7 +18,8 @@ public class GameController : MonoBehaviour {
         INITGAME,
         GAMELOOP,
         ENDGAME,
-        CHANGEMENU
+        CHANGEMENU,
+        RESET
     }
 
     [System.Serializable]
@@ -35,11 +36,11 @@ public class GameController : MonoBehaviour {
     public List<GameSettings> PlayerSettingsByDificult;
 
     //game variables
+    public int playerLives;
     float deltatime;
     float maxInVisT;
     
     float tbs;
-    int pl = 0;
     public GameState gs = GameState.DISABLED;
     //bool initGame = false;
 
@@ -80,17 +81,23 @@ public class GameController : MonoBehaviour {
                     deltatime = 0;
                 }
                 if (CheckEndCondition()) gs = GameState.ENDGAME;
+                if (GetComponent<GridGenerator>().AllCardsUncoveredCorrectly() && 
+                    GetComponent<GridGenerator>().isInfinite) gs = GameState.RESET;
                 break;
 
             case GameState.ENDGAME:
-                if (!this.GetComponent<CardData>().cards[this.GetComponent<GridGenerator>().LastIdMonsterUncovered].unlocked)
+                if (!this.GetComponent<CardData>().cards[this.GetComponent<GridGenerator>().LastIdMonsterUncovered].unlocked &&
+                    !GetComponent<GridGenerator>().isInfinite)
                 {
                     this.GetComponent<CardData>().SetCardInfo(this.GetComponent<GridGenerator>().LastIdMonsterUncovered, true);
                     this.GetComponent<GaleryController>().cardsInGalery[this.GetComponent<GridGenerator>().LastIdMonsterUncovered].GetComponent<GaleryCardScript>().UnlockCard();
                 }
+
                 GetComponent<InputController>().DeactivateInput(false);
+                GetComponent<InputController>().ResetInputController();
                 GetComponent<ScoreManager>().CompareScore();
                 GetComponent<ScoreManager>().SaveGame();
+                GetComponent<InterfaceController>().ResetLives();
                 GetComponent<GridGenerator>().CleanGrid(true);
                 gs = GameState.DISABLED;
                 break;
@@ -100,6 +107,14 @@ public class GameController : MonoBehaviour {
                 gs = GameState.DISABLED;
 
                 break;
+
+            case GameState.RESET:
+                GetComponent<InputController>().DeactivateInput(false);
+                GetComponent<InputController>().ResetInputController();
+                GetComponent<GridGenerator>().CleanGrid(true);
+                gs = GameState.DISABLED;
+                GetComponent<GridGenerator>().GenerateGrid();
+                break;
         }
     }
 
@@ -107,6 +122,10 @@ public class GameController : MonoBehaviour {
     {
         SetGamePref(d);
         deltatime = 0.0f;
+        if (GetComponent<GridGenerator>().isInfinite)
+        {
+            GetComponent<InterfaceController>().InitLives(PlayerSettingsByDificult[d].playerLifes);
+        }
         gs = GameState.DISABLED;
         GetComponent<GridGenerator>().GenerateGrid();
     }
@@ -121,9 +140,9 @@ public class GameController : MonoBehaviour {
 
     public void SetGamePref(int d)
     {
-        Debug.Log("setting game preferences");
+        //Debug.Log("setting game preferences");
         //set lifes
-        pl = PlayerSettingsByDificult[d].playerLifes;
+        playerLives = PlayerSettingsByDificult[d].playerLifes;
         //set if is infinite game and grid size
         GetComponent<GridGenerator>().SetGridPreferences(
             PlayerSettingsByDificult[d].isInfinite,
@@ -137,8 +156,8 @@ public class GameController : MonoBehaviour {
 
     bool CheckEndCondition()
     {
-        //if (GetComponent<GridGenerator>().GetCardsInGame() <= 0) return true;
-        if(GetComponent<GridGenerator>().AllCardsUncoveredCorrectly()) return true;
+        if (GetComponent<GridGenerator>().AllCardsUncoveredCorrectly() && !GetComponent<GridGenerator>().isInfinite) return true;
+        else if (playerLives <= 0 && GetComponent<GridGenerator>().isInfinite) return true;
         else return false;
     }
 }

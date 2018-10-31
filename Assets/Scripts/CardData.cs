@@ -64,7 +64,9 @@ public class CardData : MonoBehaviour {
             if (ids.Count == cardsInGrid) break;
             int id = Random.Range(0, cardSprites.Count - 1);
             bool repited = false;
-            for (int k = 0; k < ids.Count; k++) if (ids[k] == id) {
+            //revisar per bug!
+            for (int k = 0; k < ids.Count; k++) if (ids[k] == id || cards[id].rarity > GetComponent<ScoreManager>().GetCurrentDifficult()) {
+                    Debug.Log(GetComponent<ScoreManager>().GetCurrentDifficult());
                     repited = true;
                     break;
             }

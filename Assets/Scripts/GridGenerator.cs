@@ -18,7 +18,7 @@ public class GridGenerator : MonoBehaviour {
     public CardData cardsData;
 
     List<GameObject> cardsInGame;
-    bool isInfinite = false;
+    public bool isInfinite = false;
     //bool generatingGrid = false;
     public GridState gridState = GridState.DISABLED;
     int cardsInMovement = 0;
@@ -49,6 +49,7 @@ public class GridGenerator : MonoBehaviour {
 
             case GridState.CLEANED:
                 GetComponent<GameController>().gs = GameController.GameState.CHANGEMENU;
+                cardsInMovement = 0;
                 gridState = GridState.DISABLED;
                 break;
 

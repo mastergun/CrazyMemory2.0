@@ -60,6 +60,11 @@ public class InputController : MonoBehaviour {
                         turnedCardsCount = 0;
                         cardsTurned.Clear();
                         GetComponent<ScoreManager>().AddScore(false);
+                        if (GetComponent<GridGenerator>().isInfinite)
+                        {
+                            GetComponent<GameController>().playerLives--;
+                            GetComponent<InterfaceController>().RemoveLife();
+                        }
                     }
                 }
             }
@@ -79,5 +84,11 @@ public class InputController : MonoBehaviour {
     public void DeactivateInput(bool activate)
     {
         activatedInput = activate;
+    }
+
+    public void ResetInputController()
+    {
+        turnedCardsCount = 0;
+        cardsTurned.Clear();
     }
 }

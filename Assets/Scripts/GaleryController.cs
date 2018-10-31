@@ -89,12 +89,17 @@ public class GaleryController : MonoBehaviour {
         if (cardsInMovement != 0) return;
         float distToMove = distBetweenCards;
         if (!right) distToMove = -distToMove;
-        if ((!right && centredCard == (cardsInGalery.Count - 1)) || (right && centredCard == 0)) return;
+        if ((!right && centredCard == (cardsInGalery.Count - 1)) || (right && centredCard == 0))
+        {
+            Debug.Log("movement bloqued");
+            return;
+        }
         for (int i=0;i< cardsInGalery.Count ;i++)
         {
             cardsInGalery[i].GetComponent<GaleryCardScript>().MoveCard(distToMove);
         }
-        if (right) centredCard++;
-        else centredCard--;
+        Debug.Log("centred card is " + centredCard);
+        if (right) centredCard--;
+        else centredCard++;
     }
 }

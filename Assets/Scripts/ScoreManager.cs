@@ -135,7 +135,7 @@ public class ScoreManager : MonoBehaviour
         time.text = maxScoreByDif[dif].time.ToString() + " s";
         errors.text = maxScoreByDif[dif].errors.ToString();
         currentDificult = dif;
-        Debug.Log("max score texts setted");
+        //Debug.Log("max score texts setted");
     }
 
     public void SetCurrentScoreScreen(Text points, Text time, Text errors)
