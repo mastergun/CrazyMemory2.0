@@ -34,7 +34,7 @@ public class GameController : MonoBehaviour {
     }
 
     public List<GameSettings> PlayerSettingsByDificult;
-
+    public MenuController restartMenu;
     //game variables
     public int playerLives;
     float deltatime;
@@ -42,6 +42,7 @@ public class GameController : MonoBehaviour {
     
     float tbs;
     int publiCounter = 0;
+    public bool loseGame = false;
     public GameState gs = GameState.DISABLED;
     //bool initGame = false;
 
@@ -90,8 +91,13 @@ public class GameController : MonoBehaviour {
                 if (!this.GetComponent<CardData>().cards[this.GetComponent<GridGenerator>().LastIdMonsterUncovered].unlocked &&
                     !GetComponent<GridGenerator>().isInfinite && GetComponent<GridGenerator>().AllCardsUncoveredCorrectly())
                 {
-                    this.GetComponent<CardData>().SetCardInfo(this.GetComponent<GridGenerator>().LastIdMonsterUncovered, true);
-                    this.GetComponent<GaleryController>().cardsInGalery[this.GetComponent<GridGenerator>().LastIdMonsterUncovered].GetComponent<GaleryCardScript>().UnlockCard();
+                    int i = this.GetComponent<GridGenerator>().LastIdMonsterUncovered;
+                    this.GetComponent<CardData>().SetCardInfo(i, true);
+                    this.GetComponent<GaleryController>().cardsInGalery[i].GetComponent<GaleryCardScript>().UnlockCard();
+                    restartMenu.SetCardUnlockedInfo(GetComponent<CardData>().cards[i],
+                                                    GetComponent<CardData>().cardSprites[i],
+                                                    GetComponent<GaleryController>().rarityColor[GetComponent<CardData>().cards[i].rarity]);
+                    restartMenu.ActivateNewCardUnlocked();
                 }
 
                 GetComponent<InputController>().DeactivateInput(false);
@@ -104,9 +110,11 @@ public class GameController : MonoBehaviour {
                 break;
 
             case GameState.CHANGEMENU:
-                publiCounter++;
                 GetComponent<InterfaceController>().SetRestartMenu();
+                if(loseGame) GetComponent<AudioManager>().PlayGameEffect(3);
+                else GetComponent<AudioManager>().PlayGameEffect(2);
                 if (publiCounter % 3 == 2) GetComponent<InicializerScript>().ShowInterstitial();
+                publiCounter++;
                 gs = GameState.DISABLED;
 
                 break;
@@ -124,6 +132,7 @@ public class GameController : MonoBehaviour {
     public void StartGame(int d)
     {
         SetGamePref(d);
+        loseGame = false;
         GetComponent<InicializerScript>().ShowBanner();
         deltatime = 0.0f;
         if (GetComponent<GridGenerator>().isInfinite)
@@ -131,6 +140,7 @@ public class GameController : MonoBehaviour {
             GetComponent<InterfaceController>().InitLives(PlayerSettingsByDificult[d].playerLifes);
         }
         gs = GameState.DISABLED;
+        if (publiCounter % 3 == 2) GetComponent<InicializerScript>().PrepareInterstitial();
         GetComponent<GridGenerator>().GenerateGrid();
     }
 

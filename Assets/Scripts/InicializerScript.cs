@@ -22,6 +22,8 @@ public class InicializerScript : MonoBehaviour {
 
         // Initialize the Google Mobile Ads SDK.
         MobileAds.Initialize(appId);
+        //InicializeBanner();
+        //InicializeInterstitial();
     }
 
 
@@ -35,22 +37,30 @@ public class InicializerScript : MonoBehaviour {
     {
         this.RequestBanner();
     }
-
-    public void ShowInterstitial()
+    public void PrepareInterstitial()
     {
         this.RequestInterstitial();
+    }
+    public void ShowInterstitial()
+    {
+        //this.RequestInterstitial();
+        if (interstitial.IsLoaded())
+        {
+            interstitial.Show();
+        }
     }
 
     private void RequestBanner()
     {
+        //Debug.Log("banner called");
 #if UNITY_EDITOR
         string adUnitId = "unused";
 #elif UNITY_ANDROID
-            string adUnitId = "ca-app-pub-8875687836686988/9543051672";
+                    string adUnitId = "ca-app-pub-8875687836686988/9543051672";
 #elif UNITY_IPHONE
-              //string adUnitId = "ca-app-pub-3940256099942544/2934735716";
+                      //string adUnitId = "ca-app-pub-3940256099942544/2934735716";
 #else
-          string adUnitId = "unexpected_platform";
+                  string adUnitId = "unexpected_platform";
 #endif
         if (this.bannerView != null)
         {
@@ -83,14 +93,15 @@ public class InicializerScript : MonoBehaviour {
 
     private void RequestInterstitial()
     {
+        //Debug.Log("interstitial called");
 #if UNITY_EDITOR
         string adUnitId = "unused";
 #elif UNITY_ANDROID
-            string adUnitId = "ca-app-pub-8875687836686988/4084386027";
+                    string adUnitId = "ca-app-pub-8875687836686988/4084386027";
 #elif UNITY_IPHONE
-              //string adUnitId = "ca-app-pub-3940256099942544/2934735716";
+                      //string adUnitId = "ca-app-pub-3940256099942544/2934735716";
 #else
-          string adUnitId = "unexpected_platform";
+                  string adUnitId = "unexpected_platform";
 #endif
         if (this.interstitial != null)
         {
@@ -118,6 +129,7 @@ public class InicializerScript : MonoBehaviour {
         // Load the banner with the request.
         interstitial.LoadAd(request);
 
+        
         // Called when an ad request has successfully loaded.
     }
 

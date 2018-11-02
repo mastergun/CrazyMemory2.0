@@ -213,7 +213,7 @@ MonoBehaviour:
   - {fileID: 114631961835369210}
   monster: {fileID: 114281121595211604}
   reverse: {fileID: 114148055563684024}
-  speed: 15
+  speed: 0.2
 --- !u!114 &114148055563684024
 MonoBehaviour:
   m_ObjectHideFlags: 1

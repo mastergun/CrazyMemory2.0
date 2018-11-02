@@ -65,11 +65,21 @@ public class CardData : MonoBehaviour {
             int id = Random.Range(0, cardSprites.Count - 1);
             bool repited = false;
             //revisar per bug!
-            for (int k = 0; k < ids.Count; k++) if (ids[k] == id || cards[id].rarity > GetComponent<ScoreManager>().GetCurrentDifficult()) {
-                    //Debug.Log(GetComponent<ScoreManager>().GetCurrentDifficult());
+            for (int k = 0; k < ids.Count; k++)
+            {
+                if (ids[k] == id)
+                {
                     repited = true;
                     break;
+                }
             }
+
+            if (cards[id].rarity > GetComponent<ScoreManager>().GetCurrentDifficult())
+            {
+                //Debug.Log("rarity of this monster : "+ cards[id].rarity + " this card is to much for this dificult " + id + " dificult : " + GetComponent<ScoreManager>().GetCurrentDifficult());
+                repited = true;
+            }
+                
             if (!repited)
             {
                 ids.Add(id);

@@ -79,7 +79,7 @@ public class InterfaceController : MonoBehaviour {
 
     public void SetRestartMenu()
     {
-        Debug.Log("setting restart menu");
+        //Debug.Log("setting restart menu");
         SetMenu(MENUTYPE.RESTARTMENU);
         menus[(int)MENUTYPE.RESTARTMENU].GetComponent<MenuController>().SetCurrentScoreTexts(
                                             GetComponent<ScoreManager>().GetCurrentDifficult());
@@ -133,5 +133,10 @@ public class InterfaceController : MonoBehaviour {
     {
         for (int i = 0; i < livesInGame.Count; i++) Destroy(livesInGame[i]);
         livesInGame.Clear();
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 }

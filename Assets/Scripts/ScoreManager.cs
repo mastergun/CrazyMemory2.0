@@ -60,8 +60,9 @@ public class ScoreManager : MonoBehaviour
             {
                 if (currentScore.time >= currentMaxTime)
                 {
-                    Debug.Log("player lose the game");
+                    //Debug.Log("player lose the game");
                     SetLoseScore();
+                    GetComponent<GameController>().loseGame = true;
                     GetComponent<GameController>().gs = GameController.GameState.ENDGAME;
                 }
             }
@@ -136,9 +137,9 @@ public class ScoreManager : MonoBehaviour
 
     public void SetScoreScreen(Text points, Text time, Text errors, int dif)
     {
-        points.text = maxScoreByDif[dif].points.ToString();
-        time.text = maxScoreByDif[dif].time.ToString("F1") + " s";
-        errors.text = maxScoreByDif[dif].errors.ToString();
+        if(points != null && maxScoreByDif !=null) points.text = maxScoreByDif[dif].points.ToString();
+        if (time != null && maxScoreByDif != null) time.text = maxScoreByDif[dif].time.ToString("F1") + " s";
+        if (errors != null && maxScoreByDif != null) errors.text = maxScoreByDif[dif].errors.ToString();
         currentDificult = dif;
         //Debug.Log("max score texts setted");
     }

@@ -40,8 +40,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb5f7117146fe024781c7937ce1d455d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lifeTime: 1
+  lifeTime: 0.5
   speed: 0.8
+  textIn: +5
 --- !u!114 &114721581341800804
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -74,7 +75,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: +5
+  m_Text: 
 --- !u!222 &222192790569738252
 CanvasRenderer:
   m_ObjectHideFlags: 1

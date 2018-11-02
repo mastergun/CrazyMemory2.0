@@ -72,7 +72,7 @@ public class GridGenerator : MonoBehaviour {
 
         //create a list of cards
         List<int> cardIdsInGame = cardsData.SetGridCards((((int)gridSize.x * (int)gridSize.y) / 2), textures);
-        Debug.Log("cards loaded "+ cardIdsInGame.Count);
+        //Debug.Log("cards loaded "+ cardIdsInGame.Count);
         //generate the cards, set the id and the textures
         for (int k = 1; k <= (gridSize.x * gridSize.y); k++)
         {
@@ -146,6 +146,7 @@ public class GridGenerator : MonoBehaviour {
         cardsInGame[indexs[0]].GetComponentInChildren<CardScript>().SetGridPos(
             cardsInGame[indexs[1]].GetComponentInChildren<CardScript>().GetGridPos(true));
         cardsInGame[indexs[1]].GetComponentInChildren<CardScript>().SetGridPos(c);
+        GetComponent<AudioManager>().PlayGameEffect(5);
     }
 
     public static void Shuffle(List<GameObject> list)

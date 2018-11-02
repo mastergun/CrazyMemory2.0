@@ -21,16 +21,29 @@ public class MenuController : MonoBehaviour {
     public List<Color> bgDifColors;
     public List<string> difTittles;
 
+    public GaleryCardScript unlockedCardDispalayer;
+    public GameObject UCMenu;
+
     public int DifficultSelected = 1;
+
+    public bool newCardUnlocked;
+    float deltaTime = 0;
+    public float maxTimeVisible = 5;
     // Use this for initialization
     void Start () {
         //SetCurrentDifficult();
+        //UCMenu.SetActive(false);
+        //newCardUnlocked = false;
     }
 	
 	// Update is called once per frame
 	void Update () {
-		
-	}
+        if(Input.GetMouseButtonDown(0) && newCardUnlocked)
+        {
+            UCMenu.SetActive(false);
+            newCardUnlocked = false;
+        }
+    }
 
     public void SetCurrentDifficult()
     {
@@ -62,5 +75,18 @@ public class MenuController : MonoBehaviour {
     public void ActivateHighScoreBG(bool activate)
     {
         HighScore.SetActive(activate);
+    }
+
+    public void ActivateNewCardUnlocked()
+    {
+        newCardUnlocked = true;
+        UCMenu.SetActive(true);
+        Debug.Log("unlocked menu activated");
+    }
+
+    public void SetCardUnlockedInfo(CardData.Data cardInfo, Sprite monsterImage, Color rarity)
+    {
+        unlockedCardDispalayer.SetCardInfo(cardInfo, monsterImage, rarity);
+        Debug.Log("info card seted");
     }
 }

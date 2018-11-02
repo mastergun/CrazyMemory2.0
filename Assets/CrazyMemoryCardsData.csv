@@ -1,15 +1,15 @@
 Id,Name,TextDescription,Rarity,Unlocked
-0,Spider,"8 legs, poisonous bite and a sticky web.",0,0
-1,Beholder,"Too many eyes too many powers, just run out of his sight.",0,0
-2,Chutlhu,Evil octofaced creature that will drive you nuts.,1,0
+0,Spider,8 legs poisonous bite and a sticky web,0,0
+1,Beholder,Too many eyes too many powers, just run out of his sight,0,0
+2,Chutlhu,Evil octofaced creature that will drive you nuts,1,0
 3,Flame Skull,This skull it's on fire and keeps coming back!,1,0
-4,Air Elemental,"Fresh air, with risk of blowing up.",0,0
-5,Fire Elemental,"Warm up, but don't get too close oryou will be burnt.",0,0
-6,Earth Elemental,Rocky.,0,0
-7,Displacement Beast,"A panther with six paws, two tentacles, that wants to cuddle.",1,0
-8,Medusa,"Beware of her beauty, don't dare to cross sights or petrified you will end.",0,0
-9,Mermaid,Half human half fish. If you want to hear tie yourself to the mast.,0,0
-10,Grif,"Half eagle half lion, epic monture of a paladin.",1,0
+4,Air Elemental,Fresh air with risk of blowing up,0,0
+5,Fire Elemental,Warm up but don't get too close oryou will be burnt,0,0
+6,Earth Elemental,Rocky,0,0
+7,Displacement Beast,A panther with six paws two tentacles that wants to cuddle,1,0
+8,Medusa,Beware of her beauty don't dare to cross sights or petrified you will end,0,0
+9,Mermaid,Half human half fish. If you want to hear tie yourself to the mast,0,0
+10,Grif,Half eagle half lion epic monture of a paladin.,1,0
 11,Spirit,The sentient part of someone left behind. Poor soul.,0,0
 12,WereScorpion,The moonlight will reveal their deadly sting tail.,2,0
 13,Aranea,Half woman half spider. Don't get confused both parts are lethal.,2,0
@@ -17,6 +17,6 @@ Id,Name,TextDescription,Rarity,Unlocked
 15,Jack o Lantern,Pumpking head that enlightens the path.,1,0
 16,Mimmic,Like a gashapon you can find loot or a surprise encounter.,1,0
 17,Shadow,Beware the dark they could be in your pocket!,1,0
-18,Pixie,"They aren't invisible, just faster than your sight.",0,0
-19,Treant,"Big, alive and slow tree that makes you sign in greenpeace",0,0
-20,Water Elemental,"Always wet, but be careful not to be drowned.",0,0
+18,Pixie,They aren't invisible just faster than your sight,0,0
+19,Treant,Big alive and slow tree that makes you sign in greenpeace,0,0
+20,Water Elemental,Always wet but be careful not to be drowned,0,0

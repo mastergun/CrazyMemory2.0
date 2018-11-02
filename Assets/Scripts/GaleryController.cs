@@ -43,7 +43,7 @@ public class GaleryController : MonoBehaviour {
         card = (GameObject)Instantiate(galeryCardPrefab, Vector3.zero, transform.rotation);
         card.GetComponent<GaleryCardScript>().SetCardInfo(
                 cardInfo, this.GetComponent<CardData>().cardSprites[cardInfo.id], 
-                raritySprite[cardInfo.rarity], rarityColor[cardInfo.rarity]);
+                rarityColor[cardInfo.rarity],raritySprite[cardInfo.rarity]);
         card.GetComponent<GaleryCardScript>().controllerRef = this;
         card.transform.SetParent(galeryMenu.transform, false);
         card.transform.position = new Vector3(Screen.width / 2 + pos, Screen.height / 2, 0);

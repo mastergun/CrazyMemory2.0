@@ -22,7 +22,7 @@ public class InputController : MonoBehaviour {
                 RaycastHit hit;
                 Ray ray = cameraRef.ScreenPointToRay(Input.mousePosition);
 
-                if (Physics.Raycast(ray, out hit) && hit.transform.tag == "Card")
+                if (Physics.Raycast(ray, out hit,10) && hit.transform.tag == "Card")
                 {
                     if (hit.transform.GetComponent<CardScript>().CanMove() &&
                         !AllreadyCliked(hit.transform.GetComponent<CardScript>()) &&
@@ -31,6 +31,7 @@ public class InputController : MonoBehaviour {
                         hit.transform.GetComponent<CardScript>().RotateCard();
                         cardsTurned.Add(hit.transform.GetComponent<CardScript>());
                         turnedCardsCount++;
+                        GetComponent<AudioManager>().PlayGameEffect(4);
                     }
                     else
                     {
@@ -38,7 +39,7 @@ public class InputController : MonoBehaviour {
                     }
                 }
             }
-            else if (turnedCardsCount == 2)
+            else if(turnedCardsCount == 2)
             {
                 if (cardsTurned[0].id == cardsTurned[1].id)
                 {
@@ -51,6 +52,7 @@ public class InputController : MonoBehaviour {
                     cardsTurned.Clear();
                     GetComponent<ScoreManager>().AddScore(true);
                     GetComponent<InterfaceController>().InstantiatePlusScore(Input.mousePosition);
+                    GetComponent<AudioManager>().PlayGameEffect(0);
                 }
                 else
                 {
@@ -62,6 +64,7 @@ public class InputController : MonoBehaviour {
                         cardsTurned.Clear();
                         cameraRef.GetComponentInParent<CameraShaker>().MakeCameraShake();
                         GetComponent<ScoreManager>().AddScore(false);
+                        GetComponent<AudioManager>().PlayGameEffect(1);
                         if (GetComponent<GridGenerator>().isInfinite)
                         {
                             GetComponent<GameController>().playerLives--;

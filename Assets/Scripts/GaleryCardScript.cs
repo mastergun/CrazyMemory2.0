@@ -37,16 +37,16 @@ public class GaleryCardScript : MonoBehaviour {
                 controllerRef.cardsInMovement--;
                 dir = Vector2.zero;
             }
-            else this.transform.position += dir * speed;
+            else this.transform.position += dir * speed * (Screen.currentResolution.width/5);
         }
 	}
 
-    public void SetCardInfo(CardData.Data cardInfo, Sprite monsterImage, Sprite rarityImage, Color rarity)
+    public void SetCardInfo(CardData.Data cardInfo, Sprite monsterImage, Color rarity, Sprite rarityImage = null)
     {
         CardTexts[0].text = cardInfo.name;
         CardTexts[1].text = cardInfo.description;
         monster.sprite = monsterImage;
-        reverse.sprite = rarityImage;
+        if(rarityImage != null)reverse.sprite = rarityImage;
         this.GetComponent<Image>().color = rarity;
         if (cardInfo.unlocked) UnlockCard();
     }
