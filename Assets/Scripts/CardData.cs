@@ -39,7 +39,15 @@ public class CardData : MonoBehaviour {
                 cards.Add(lineData);
             }
         }
+        //SortCardsByRarity();
+        //SortCardSpritesAndIds();
+        //SortIds();
         //this.GetComponent<GaleryController>().InicializeCardsInGalery();
+    }
+
+    public void LoadInitIds()
+    {
+
     }
 
     public void SetCardInfo(int id, bool u)
@@ -88,5 +96,33 @@ public class CardData : MonoBehaviour {
             }
         }
         return ids;
+    }
+
+    public void SortCardsByRarity()
+    {
+        cards.Sort((p1, p2) => p1.rarity.CompareTo(p2.rarity));
+    }
+
+    public void SortIds()
+    {
+        for (int i = 0; i < cards.Count; i++)
+        {
+            Data d = new Data();
+            d.id = i;
+            d.name = cards[i].name;
+            d.description = cards[i].description;
+            d.rarity = cards[i].rarity;
+            d.unlocked = cards[i].unlocked;
+            cards[i] = d;
+        }
+    }
+    public void SortCardSpritesAndIds()
+    {
+        List<Sprite> newLS = new List<Sprite>();
+        for(int i = 0;i < cards.Count; i++)
+        {
+            newLS.Add(cardSprites[cards[i].id]);
+        }
+        cardSprites = newLS;
     }
 }

@@ -195,7 +195,7 @@ public class ScoreManager : MonoBehaviour
             maxScoreByDif.Add(s);
         }
         cardsInfo.cards = save.cards;
-        //this.GetComponent<GaleryController>().InicializeCardsInGalery();
+        //cardsInfo.SortCardSpritesAndIds();
         firstTimeGame = save.firstTimeGame;
     }
 
