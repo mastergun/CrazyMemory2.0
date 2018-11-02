@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AudioManager : MonoBehaviour {
     enum effects
@@ -10,12 +11,18 @@ public class AudioManager : MonoBehaviour {
         VICTORY,
         LOSE,
         FLIPCARD,
-        CHANGECARD
+        CHANGECARD,
+        CLICKBUTTON
     }
 
     public List<AudioClip> gameEffects;
     public List<AudioClip> monsterSounds;
+    public Slider effectsSlider;
+    public Slider musicSlider;
     private AudioSource audioS;
+
+    float effectsVol;
+    float musicVol;
 	// Use this for initialization
 	void Start () {
         audioS = GetComponent<AudioSource>();
@@ -24,20 +31,22 @@ public class AudioManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
-	}
+        effectsVol = effectsSlider.value;
+        musicVol = musicSlider.value;
+
+    }
 
     public void PlayMonsterSound(int id)
     {
-        float vol = Random.Range(0.5f,0.7f);
+        //float vol = Random.Range(0.5f,0.7f);
         audioS.Stop();
-        audioS.PlayOneShot(monsterSounds[id], vol);
+        audioS.PlayOneShot(monsterSounds[id], effectsVol);
     }
 
     public void PlayGameEffect(int id)
     {
-        float vol = Random.Range(0.5f, 0.7f);
+        //float vol = Random.Range(0.5f, 0.7f);
         audioS.Stop();
-        audioS.PlayOneShot(gameEffects[id], vol);
+        audioS.PlayOneShot(gameEffects[id], effectsVol);
     }
 }

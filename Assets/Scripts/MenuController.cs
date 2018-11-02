@@ -27,7 +27,6 @@ public class MenuController : MonoBehaviour {
     public int DifficultSelected = 1;
 
     public bool newCardUnlocked;
-    float deltaTime = 0;
     public float maxTimeVisible = 5;
     // Use this for initialization
     void Start () {

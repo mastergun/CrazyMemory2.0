@@ -22,8 +22,7 @@ public class InicializerScript : MonoBehaviour {
 
         // Initialize the Google Mobile Ads SDK.
         MobileAds.Initialize(appId);
-        //InicializeBanner();
-        //InicializeInterstitial();
+        ShowBanner();
     }
 
 
