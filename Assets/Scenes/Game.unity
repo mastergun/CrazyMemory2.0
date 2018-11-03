@@ -3662,7 +3662,7 @@ MonoBehaviour:
   - CRAZY
   - INFINITE
   parseScore: 0
-  pointsPerCard: 5
+  pointsPerCard: 50
   maxTimeToComplete: 10
 --- !u!114 &715941513
 MonoBehaviour:
@@ -3699,6 +3699,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: dc275d538ad9e30449bb5971a67c5d5c, type: 3}
   - {fileID: 21300000, guid: f927694e60c665841a8ae9c2dbc3229d, type: 3}
   - {fileID: 21300000, guid: 87139e43c3e769f4891457402b7a3f7b, type: 3}
+  unSortedCardIds: 
 --- !u!114 &715941514
 MonoBehaviour:
   m_ObjectHideFlags: 0

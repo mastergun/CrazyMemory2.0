@@ -49,4 +49,14 @@ public class AudioManager : MonoBehaviour {
         audioS.Stop();
         audioS.PlayOneShot(gameEffects[id], effectsVol);
     }
+
+    public void SortMonsterAudios(List<int> ids)
+    {
+        List<AudioClip> newLS = new List<AudioClip>();
+        for (int i = 0; i < monsterSounds.Count; i++)
+        {
+            newLS.Add(monsterSounds[ids[i]]);
+        }
+        monsterSounds = newLS;
+    }
 }

@@ -27,9 +27,10 @@ public class ScoreManager : MonoBehaviour
 
     bool firstTimeGame = true;
     public bool parseScore = false;
-    public float pointsPerCard = 5;
+    public float pointsPerCard = 50;
     public float maxTimeToComplete = 0;
     float currentMaxTime = 0;
+    float deltaTimeScore = 0;
 
     // Use this for initialization
 
@@ -55,7 +56,16 @@ public class ScoreManager : MonoBehaviour
         if (parseScore)
         {
             currentScore.time += Time.deltaTime;
+            deltaTimeScore += Time.deltaTime;
             inGameTimeScore.text = currentScore.time.ToString("F1") + "s/ " + currentMaxTime + "s";
+            if(deltaTimeScore > 5)
+            {
+                currentScore.points -= 10;
+                if (currentScore.points < 0) currentScore.points = 0;
+                deltaTimeScore = 0;
+                //Debug.Log("losedPoints per time");
+            }
+
             if(currentMaxTime > 0)
             {
                 if (currentScore.time >= currentMaxTime)
@@ -120,6 +130,8 @@ public class ScoreManager : MonoBehaviour
         else
         {
             currentScore.errors++;
+            currentScore.points -= 20;
+            if (currentScore.points < 0) currentScore.points = 0;
         } 
     }
 
@@ -179,6 +191,7 @@ public class ScoreManager : MonoBehaviour
             save.scores.Add(score);
         }
         save.cards = cardsInfo.cards;
+        save.unsortedIds = cardsInfo.unSortedCardIds;
         save.firstTimeGame = firstTimeGame;
         return save;
     }
@@ -195,8 +208,10 @@ public class ScoreManager : MonoBehaviour
             maxScoreByDif.Add(s);
         }
         cardsInfo.cards = save.cards;
-        //cardsInfo.SortCardSpritesAndIds();
+        cardsInfo.unSortedCardIds = save.unsortedIds;
         firstTimeGame = save.firstTimeGame;
+        cardsInfo.SortCardSprites();
+        GetComponent<AudioManager>().SortMonsterAudios(cardsInfo.unSortedCardIds);
     }
 
     //bug to create save
@@ -231,7 +246,7 @@ public class ScoreManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("No game saved!");
+            //Debug.Log("No game saved!");
         }
     }
 

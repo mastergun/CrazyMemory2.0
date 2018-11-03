@@ -16,7 +16,7 @@ public class CardData : MonoBehaviour {
     public TextAsset d;
     public List<Data> cards = new List<Data>();
     public List<Sprite> cardSprites = new List<Sprite>();
-
+    public List<int> unSortedCardIds = new List<int>();
 	// Use this for initialization
 
     public void LoadData()
@@ -39,15 +39,10 @@ public class CardData : MonoBehaviour {
                 cards.Add(lineData);
             }
         }
-        //SortCardsByRarity();
-        //SortCardSpritesAndIds();
-        //SortIds();
+        SortCardsByRarity();
+        SortCardSprites();
+        GetComponent<AudioManager>().SortMonsterAudios(unSortedCardIds);
         //this.GetComponent<GaleryController>().InicializeCardsInGalery();
-    }
-
-    public void LoadInitIds()
-    {
-
     }
 
     public void SetCardInfo(int id, bool u)
@@ -101,6 +96,8 @@ public class CardData : MonoBehaviour {
     public void SortCardsByRarity()
     {
         cards.Sort((p1, p2) => p1.rarity.CompareTo(p2.rarity));
+        for (int i = 0; i < cards.Count; i++) unSortedCardIds.Add(cards[i].id);
+        SortIds();
     }
 
     public void SortIds()
@@ -116,12 +113,12 @@ public class CardData : MonoBehaviour {
             cards[i] = d;
         }
     }
-    public void SortCardSpritesAndIds()
+    public void SortCardSprites()
     {
         List<Sprite> newLS = new List<Sprite>();
         for(int i = 0;i < cards.Count; i++)
         {
-            newLS.Add(cardSprites[cards[i].id]);
+            newLS.Add(cardSprites[unSortedCardIds[i]]);
         }
         cardSprites = newLS;
     }
