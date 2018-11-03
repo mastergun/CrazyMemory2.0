@@ -125,7 +125,7 @@ public class ScoreManager : MonoBehaviour
         if (add)
         {
             currentScore.points += pointsPerCard;
-            if(currentMaxTime > 0) currentMaxTime += pointsPerCard;
+            if(currentMaxTime > 0) currentMaxTime += 5;
         }
         else
         {

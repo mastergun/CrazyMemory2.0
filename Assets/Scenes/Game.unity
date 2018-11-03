@@ -3554,13 +3554,13 @@ MonoBehaviour:
     isInfinite: 0
     maxInitVisibleTime: 3
     timeBtwShuffle: 4
-    maxGameTime: 30
+    maxGameTime: 20
   - playerLifes: -1
     gridSize: {x: 5, y: 4}
     isInfinite: 0
     maxInitVisibleTime: 2
     timeBtwShuffle: 2
-    maxGameTime: 10
+    maxGameTime: 5
   - playerLifes: 3
     gridSize: {x: 5, y: 4}
     isInfinite: 1
