@@ -16,7 +16,7 @@ PlayerSettings:
   productName: CrazyMemory
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
-  m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 0.1882353}
+  m_SplashScreenBackgroundColor: {r: 0.5943396, g: 0.1541919, b: 0.1541919, a: 0.1882353}
   m_ShowUnitySplashScreen: 1
   m_ShowUnitySplashLogo: 1
   m_SplashScreenOverlayOpacity: 0.5
@@ -42,7 +42,7 @@ PlayerSettings:
   m_SplashScreenLogos:
   - logo: {fileID: 10404, guid: 0000000000000000e000000000000000, type: 0}
     duration: 2
-  - logo: {fileID: 21300000, guid: 8bec2d55c11aaf04dac78a2d81d15cba, type: 3}
+  - logo: {fileID: 21300000, guid: 8af4b88d630af6f48a7ed50f9c58435a, type: 3}
     duration: 2
   m_VirtualRealitySplashScreen: {fileID: 0}
   m_HolographicTrackingLossScreen: {fileID: 0}
@@ -122,7 +122,7 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  bundleVersion: 2.1
+  bundleVersion: 2.5
   preloadedAssets:
   - {fileID: 1692939744477228, guid: 0199aaf407c3cda4cbf4dca4dfba8a67, type: 2}
   - {fileID: 1252625690078332, guid: aeaed699fbfbcee42b4edb7b65d45e2b, type: 2}
@@ -162,7 +162,7 @@ PlayerSettings:
     Android: com.MirrorGames.CrazyMemory
     Standalone: com.Company.ProductName
   buildNumber: {}
-  AndroidBundleVersionCode: 8
+  AndroidBundleVersionCode: 12
   AndroidMinSdkVersion: 16
   AndroidTargetSdkVersion: 0
   AndroidPreferredInstallLocation: 0
@@ -269,7 +269,7 @@ PlayerSettings:
   - m_BuildTarget: 
     m_Icons:
     - serializedVersion: 2
-      m_Icon: {fileID: 2800000, guid: 844ce89f4f05afd4bb3e6710d35c9f7f, type: 3}
+      m_Icon: {fileID: 2800000, guid: 6e0b3176e5c01814cb739de83af6d618, type: 3}
       m_Width: 128
       m_Height: 128
       m_Kind: 0
@@ -388,7 +388,7 @@ PlayerSettings:
   openGLRequireES31AEP: 0
   m_TemplateCustomTags: {}
   mobileMTRendering:
-    Android: 1
+    Android: 0
     iPhone: 1
     tvOS: 1
   m_BuildTargetGroupLightmapEncodingQuality: []
@@ -668,7 +668,8 @@ PlayerSettings:
   allowUnsafeCode: 0
   additionalIl2CppArgs: 
   scriptingRuntimeVersion: 0
-  apiCompatibilityLevelPerPlatform: {}
+  apiCompatibilityLevelPerPlatform:
+    Android: 1
   m_RenderingPath: 1
   m_MobileRenderingPath: 1
   metroPackageName: Template_2D
