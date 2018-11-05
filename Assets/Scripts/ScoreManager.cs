@@ -100,10 +100,16 @@ public class ScoreManager : MonoBehaviour
 
     public bool CompareScore()
     {
-        if(currentScore.points > maxScoreByDif[currentDificult].points || currentScore.time < maxScoreByDif[currentDificult].time)
+        if(currentScore.points > maxScoreByDif[currentDificult].points)
         {
             //Debug.Log("max score raised!! time : " + currentScore.time + " points : " + currentScore.points);
              
+            SetMaxScore(currentScore.points, currentScore.time, currentScore.errors, currentDificult);
+            restartMenu.ActivateHighScoreBG(true);
+            return true;
+        }
+        if(currentScore.points >= maxScoreByDif[currentDificult].points &&currentScore.time < maxScoreByDif[currentDificult].time)
+        {
             SetMaxScore(currentScore.points, currentScore.time, currentScore.errors, currentDificult);
             restartMenu.ActivateHighScoreBG(true);
             return true;

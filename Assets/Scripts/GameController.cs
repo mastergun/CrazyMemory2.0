@@ -102,7 +102,8 @@ public class GameController : MonoBehaviour {
 
                 GetComponent<InputController>().DeactivateInput(false);
                 GetComponent<InputController>().ResetInputController();
-                GetComponent<ScoreManager>().CompareScore();
+                if(!loseGame && !GetComponent<GridGenerator>().isInfinite) GetComponent<ScoreManager>().CompareScore();
+                else if(GetComponent<GridGenerator>().isInfinite) GetComponent<ScoreManager>().CompareScore(); 
                 GetComponent<ScoreManager>().SaveGame();
                 GetComponent<InterfaceController>().ResetLives();
                 GetComponent<GridGenerator>().CleanGrid(true);
